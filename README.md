@@ -1,1 +1,4 @@
-CheckoutKit ios
+
+# checkoutkit-ios
+CheckoutKit for iOS
+
