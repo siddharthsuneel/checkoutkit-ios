@@ -17,7 +17,7 @@ import CheckoutKit
 
 You will need to specify at least the public key when creating an instance of ***CheckoutKit***. We offer a wide range of constructors, the ***CheckoutKit*** instance is entirely customizable:
 
-```html
+```
 CheckoutKit.getInstance(pk: String, env: Environment, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit?
 CheckoutKit.getInstance(pk: String, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit?
 CheckoutKit.getInstance(pk: String, env: Environment, logger: Log, error: NSErrorPointer) -> CheckoutKit?
@@ -46,7 +46,7 @@ Another class is available for utility functions: ***CardValidator***. It provid
 
 **Create card token**
 
-```
+```swift
 import CheckoutKit
 
 let publicKey: String = "your_public_key"
