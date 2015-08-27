@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /// Class used to manage the http connections with Checkout's server. Serves as an abstraction for get and post requests
 

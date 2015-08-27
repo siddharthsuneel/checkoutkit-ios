@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /// Class used to represent a error returned by the server after a request has failed. It contains all the information relative to this error/failure.
 

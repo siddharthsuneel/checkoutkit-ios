@@ -48,9 +48,9 @@ public class CheckoutKit {
     
     */
     
-    private init?(pk: String, env: Environment, logging: Bool, logger: Log, error: NSErrorPointer) {
+    private init?(pk: String, env: Environment, debug: Bool, logger: Log, error: NSErrorPointer) {
         self.env = env
-        self.logging = logging
+        self.logging = debug
         self.logger = logger
 
         if !Regex(pattern: PUBLIC_KEY_REGEX_VALIDATION).matches(pk) && error != nil {
@@ -80,9 +80,9 @@ public class CheckoutKit {
     
     */
     
-    public class func getInstance(pk: String, env: Environment, logging: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
+    public class func getInstance(pk: String, env: Environment, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = CheckoutKit(pk: pk, env: env, logging: logging, logger: logger, error: error)
+            ck = CheckoutKit(pk: pk, env: env, debug: debug, logger: logger, error: error)
         }
         return ck
     }
@@ -99,7 +99,7 @@ public class CheckoutKit {
     
     public class func getInstance(pk: String, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, logging: true, logger: Log.getLog(), error: error)
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: Log.getLog(), error: error)
         }
         return ck
     }

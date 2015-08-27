@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /// Protocol implemented by all the classes that can be represented as JSON objects or strings
 
