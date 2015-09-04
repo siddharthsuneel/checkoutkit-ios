@@ -1,6 +1,6 @@
 //
 //  CardToken.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 17/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// Class instantiated when the createCardToken method of CheckoutKit is called, it contains all the information returned by Checkout
+/** Class instantiated when the createCardToken method of CheckoutKit is called, it contains all the information returned by  Checkout */
 
-public class CardToken : Serializable {
+public class CardToken: Serializable {
     
     public var expMonth: String!
     public var expYear: String!
@@ -27,21 +27,21 @@ public class CardToken : Serializable {
     
     Default constructor for a CardToken
     
-    :param: expMonth : String containing the expiring month of the card
+    @param expMonth String containing the expiring month of the card
     
-    :param: expYear : String containing the expiring year of the card
+    @param expYear String containing the expiring year of the card
     
-    :param: billDetails : Object containing the billing details of the customer
+    @param billDetails Object containing the billing details of the customer
     
-    :param: last4 : String containing the last 4 digits of the card's number
+    @param last4 String containing the last 4 digits of the card's number
     
-    :param: paymentMethod : String containing the payment method corresponding to the card
+    @param paymentMethod String containing the payment method corresponding to the card
     
-    :param: fingerprint : String containing the fingerprint corresponding to the card
+    @param fingerprint String containing the fingerprint corresponding to the card
     
-    :param: name : String corresponding the the card's owner name
+    @param name String corresponding the the card's owner name
     
-    :param: cardToken : String containing the card token
+    @param cardToken String containing the card token
     
     */
     
@@ -60,7 +60,7 @@ public class CardToken : Serializable {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a CardToken instance
+    @param data Dictionary [String: AnyObject] containing a JSON representation of a CardToken instance
     
     */
     

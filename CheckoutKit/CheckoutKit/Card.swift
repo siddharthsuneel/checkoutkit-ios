@@ -1,6 +1,6 @@
 //
 //  Card.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 13/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class containing the card's details before sending them to createCardToken
+/** Class containing the card's details before sending them to createCardToken */
 
 public class Card {
     var name: String?
@@ -22,19 +22,19 @@ public class Card {
     
     Default constructor
     
-    :param: number : String containing the card's number
+    @param number String containing the card's number
     
-    :param: name : String containing the card's owner name
+    @param name String containing the card's owner name
     
-    :param: expMonth : String containing the expiry month
+    @param expMonth String containing the expiry month
     
-    :param: expYear : String containing the expiry year
+    @param expYear String containing the expiry year
     
-    :param: cvv : String containing the CVV
+    @param cvv String containing the CVV
     
-    :param: billinDetails : CustomerDetails object containing the information of the customer, optional
+    @param billinDetails CustomerDetails object containing the information of the customer, optional
     
-    :param: error : NSErrorPointer : if an error occurs or one of the values is invalid, the error object is defined accordingly
+    @param error NSErrorPointer if an error occurs or one of the values is invalid, the error object is defined accordingly
     
     */
     public init?(name: String?, number: String, expYear: String, expMonth: String, cvv: String, billingDetails: CustomerDetails?, error: NSErrorPointer) {
@@ -68,7 +68,7 @@ public class Card {
     
     Function returning the JSON representation of this Card instance
     
-    :returns: Dictionary [String: AnyObject] containing the JSON components of the instance
+    @return Dictionary [String: AnyObject] containing the JSON components of the instance
     
     */
     func getJson() -> [String: AnyObject] {

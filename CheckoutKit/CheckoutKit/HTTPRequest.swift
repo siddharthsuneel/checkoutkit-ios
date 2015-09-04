@@ -1,6 +1,6 @@
 //
 //  HTTPConnector.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 13/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used to manage the http connections with Checkout's server. Serves as an abstraction for get and post requests
+/** Class used to manage the http connections with Checkout's server. Serves as an abstraction for get and post requests */
 
 
 public class HTTPRequest {
@@ -17,15 +17,15 @@ public class HTTPRequest {
     
     Method allowing to send a GET request to a given url
     
-    :param: url : String containing the url the request must be sent to
+    @param url String containing the url the request must be sent to
     
-    :param: pk : String containing the public key of the merchant
+    @param pk String containing the public key of the merchant
     
-    :param: debug : Bool if the logging is activated or not
+    @param debug Bool if the logging is activated or not
     
-    :param: log : Log instance with the logger it should log into
+    @param log Log instance with the logger it should log into
     
-    :param: completion : Handler having a Response instance as a parameter
+    @param completion Handler having a Response instance as a parameter
     
     */
     
@@ -38,17 +38,17 @@ public class HTTPRequest {
     
     Method allowing to send a POST request to a given url with a payload
     
-    :param: url : String containing the url the request must be sent to
+    @param url String containing the url the request must be sent to
     
-    :param: payload : String containing the data to be sent with the request
+    @param payload String containing the data to be sent with the request
     
-    :param: pk : String containing the public key of the merchant
+    @param pk String containing the public key of the merchant
     
-    :param: debug : Bool if the logging is activated or not
+    @param debug Bool if the logging is activated or not
     
-    :param: log : Log instance with the logger it should log into
+    @param log Log instance with the logger it should log into
     
-    :param: completion : Handler having a Response instance as a parameter
+    @param completion Handler having a Response instance as a parameter
     
     */
     
@@ -76,7 +76,7 @@ public class HTTPRequest {
                         resp = Response<T>(model: model!, status: status)
                         
                         if(debug){
-                            logger.info("** HttpResponse**  Status 200 OK :\(jsonResult!.description)")
+                            logger.info("** HttpResponse**  Status 200 OK\(jsonResult!.description)")
                         }
                         completion(resp: resp)
                     }
@@ -84,6 +84,7 @@ public class HTTPRequest {
                     var e = ResponseError<T>(data: jsonResult!)
                     if e == nil {
                         logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
+                        return
                     }
                     resp = Response<T>(error: e!, status: status)
                     if(debug){
@@ -111,11 +112,11 @@ class HTTPConnector: NSObject {
     
     Default constructor
     
-    :param: handler: handler having NSData (with the content of the response) and status (Int containing the HTTP status of the request) as parameters
+    @param handler: handler having NSData (with the content of the response) and status (Int containing the HTTP status of the request) as parameters
     
-    :param: debug : Bool if the logging is activated or not
+    @param debug Bool if the logging is activated or not
     
-    :param: log : Log instance with the logger it should log into
+    @param log Log instance with the logger it should log into
     
     */
     init(handler: (data: NSData, status: Int) -> Void, debug: Bool, log: Log) {
@@ -169,7 +170,7 @@ class HTTPConnector: NSObject {
     */
     
     func sendRequest(url: String, method: HTTPMethod, payload: String, pk: String) {
-        var request : NSMutableURLRequest = NSMutableURLRequest()
+        var request: NSMutableURLRequest = NSMutableURLRequest()
         request.URL = NSURL(string: url)
         request.HTTPMethod = "\(method.rawValue)"
         

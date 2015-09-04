@@ -1,6 +1,6 @@
 //
 //  Regex.swift
-//  Pods
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 19/08/2015.
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Utility class used to abstract the use of regular expressions
+/** Utility class used to abstract the use of regular expressions */
 
 public class Regex {
     var internalExpression: NSRegularExpression?
@@ -17,7 +17,7 @@ public class Regex {
 
     Default constructor
     
-    :param: pattern : String containing a regular expression
+    @param pattern String containing a regular expression
     
     */
     public init(pattern: String) {
@@ -28,7 +28,7 @@ public class Regex {
 
     Function used to test if an input matches the regular expression
     
-    :param: input : String to be tested with the regular expression
+    @param input String to be tested with the regular expression
     
     */
     public func matches(input: String) -> Bool {
@@ -40,9 +40,9 @@ public class Regex {
 
     Function used to replace the regular expression in an input by some other characters
     
-    :param: input : String to be modified
+    @param input String to be modified
     
-    :param: template : String to replace the matching parts of the input with
+    @param template String to replace the matching parts of the input with
     
     */
     public func replace(input: String, template: String) -> String {

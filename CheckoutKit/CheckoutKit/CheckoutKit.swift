@@ -1,6 +1,6 @@
 //
 //  CheckoutKit.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 13/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Main class allowing to create one CheckoutKit instance, provide the merchant's public key and create card tokens
+/** Main class allowing to create one CheckoutKit instance, provide the merchant's public key and create card tokens */
 
 public class CheckoutKit {
     
@@ -36,15 +36,15 @@ public class CheckoutKit {
     
     Private constructor used for the Singleton Pattern
     
-    :param: pk : String containing the merchant's public key
+    @param pk String containing the merchant's public key
     
-    :param: env   : Environment object containing the information of the merchant's environment, default is SANDBOX
+    @param env Environment object containing the information of the merchant's environment, default is SANDBOX
     
-    :param: logging   : boolean, if the debug mode is activated or not, default is true
+    @param debug boolean, if the debug mode is activated or not, default is true
     
-    :param: logger    : Log instance for logging purposes if debug mode is activated
+    @param logger Log instance for logging purposes if debug mode is activated
     
-    :param: error : NSErrorPointer : if an error occurs or the public key is invalid, the error object is defined accordingly
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
@@ -68,15 +68,15 @@ public class CheckoutKit {
     
     Function used for the Singleton Pattern, returns a unique CheckoutKit instance
     
-    :param: pk : String containing the merchant's public key
+    @param pk String containing the merchant's public key
     
-    :param: env   : Environment object containing the information of the merchant's environment, default is SANDBOX
+    @param env Environment object containing the information of the merchant's environment, default is SANDBOX
     
-    :param: logging   : boolean, if the debug mode is activated or not, default is true
+    @param debug boolean, if the debug mode is activated or not, default is true
     
-    :param: logger    : Log instance for logging purposes if debug mode is activated
+    @param logger Log instance for logging purposes if debug mode is activated
     
-    :param: error : NSErrorPointer : if an error occurs or the public key is invalid, the error object is defined accordingly
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
@@ -91,9 +91,9 @@ public class CheckoutKit {
     
     Function used for the Singleton Pattern, returns a unique CheckoutKit instance
     
-    :param: pk : String containing the merchant's public key
+    @param pk String containing the merchant's public key
     
-    :param: error : NSErrorPointer : if an error occurs or the public key is invalid, the error object is defined accordingly
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
@@ -104,6 +104,17 @@ public class CheckoutKit {
         return ck
     }
     
+    
+    /**
+
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance, to be used once the CheckoutKit object has been instantiated to retrieve it
+    
+    @param error NSErrorPointer if an error occurs, the public key is invalid or the CheckoutKit instance has not been instantiated before, the error object is defined accordingly
+    
+    @returns null if getInstance has not been called before specifying all the parameters or the CheckoutKit object
+
+    */
+
     public class func getInstance(error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil && error != nil) {
             error.memory = NSError(domain: CheckoutError.NoPK.rawValue, code: -1, userInfo:nil)
@@ -112,11 +123,131 @@ public class CheckoutKit {
         return ck
     }
     
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param debug boolean, if the debug mode is activated or not, default is true
+    
+    @param logger Log instance for logging purposes if debug mode is activated
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: logger, error: error)
+        }
+        return ck
+    }
+    
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param env Environment object containing the information of the merchant's environment, default is SANDBOX
+    
+    @param logger Log instance for logging purposes if debug mode is activated
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, env: Environment, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: env, debug: true, logger: logger, error: error)
+        }
+        return ck
+    }
+    
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param env Environment object containing the information of the merchant's environment, default is SANDBOX
+    
+    @param debug boolean, if the debug mode is activated or not, default is true
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, env: Environment, debug: Bool, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: env, debug: debug, logger: Log.getLog(), error: error)
+        }
+        return ck
+    }
+    
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param env Environment object containing the information of the merchant's environment, default is SANDBOX
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, env: Environment, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: env, debug: true, logger: Log.getLog(), error: error)
+        }
+        return ck
+    }
+    
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param logger Log instance for logging purposes if debug mode is activated
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: logger, error: error)
+        }
+        return ck
+    }
+    
+    /**
+    
+    Function used for the Singleton Pattern, returns a unique CheckoutKit instance
+    
+    @param pk String containing the merchant's public key
+    
+    @param debug boolean, if the debug mode is activated or not, default is true
+    
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
+    
+    */
+    
+    public class func getInstance(pk: String, debug: Bool, error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil) {
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: Log.getLog(), error: error)
+        }
+        return ck
+    }
+    
     /*
     
     Private function used for generating the correct url for REST calls
     
-    :param: function : RESTFunction instance containing the details of the REST fonction to be called
+    @param function RESTFunction instance containing the details of the REST fonction to be called
     
     */
     
@@ -128,9 +259,9 @@ public class CheckoutKit {
     
     Function that calls getCardProviders via REST on the server specified in Environment
     
-    :param: completion : Handler having a instance of Response<CardProviderResponse> as a parameter
+    @param completion Handler having a instance of Response<CardProviderResponse> as a parameter
     
-    :returns: CardProvider array containing the Checkout card providers
+    @return CardProvider array containing the Checkout card providers
     
     */
     
@@ -147,11 +278,11 @@ public class CheckoutKit {
     
     Function that calls createCardToken via REST on the server specified in Environment
     
-    :param: card : Card object containing the informations to be tokenized
+    @param card Card object containing the informations to be tokenized
     
-    :param: completion : Handler having a instance of Response<CardTokenResponse> as a parameter
+    @param completion Handler having a instance of Response<CardTokenResponse> as a parameter
     
-    :returns: CardToken object containing all the information received by the server
+    @return CardToken object containing all the information received by the server
 
     */
     

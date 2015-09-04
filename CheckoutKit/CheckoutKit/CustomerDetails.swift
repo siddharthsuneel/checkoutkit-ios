@@ -1,6 +1,6 @@
 //
 //  CustomerDetails.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 17/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used to represent customer's details
+/** Class used to represent customer's details */
 
 public class CustomerDetails {
     var address1: String?
@@ -23,21 +23,21 @@ public class CustomerDetails {
     
     Default constructor
     
-    :param: address1 : String containing the first line of the customer's address
+    @param address1 String containing the first line of the customer's address
     
-    :param: address2 : String containing the second line of the customer's address
+    @param address2 String containing the second line of the customer's address
     
-    :param: postCode : String containing the postal code of the customer's address
+    @param postCode String containing the postal code of the customer's address
     
-    :param: country : String containing the country of the customer's address
+    @param country String containing the country of the customer's address
     
-    :param: city : String containing the city of the customer's address
+    @param city String containing the city of the customer's address
     
-    :param: state : String containing the state of the customer's address
+    @param state String containing the state of the customer's address
     
-    :param: phoneCountryCode : String containing the country code of the customer
+    @param phoneCountryCode String containing the country code of the customer
     
-    :param: phoneNumber : String containing the phone number of the customer
+    @param phoneNumber String containing the phone number of the customer
     
     */
     
@@ -55,7 +55,7 @@ public class CustomerDetails {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a CustomerDetails instance
+    @param data: Dictionary [String: AnyObject] containing a JSON representation of a CustomerDetails instance
     
     */
     
@@ -75,7 +75,7 @@ public class CustomerDetails {
     
     Function returning the JSON representation of this CustomerDetails instance
     
-    :returns: Dictionary [String: AnyObject] containing the JSON components of the instance
+    @return Dictionary [String: AnyObject] containing the JSON components of the instance
     
     */
     
@@ -108,7 +108,7 @@ public class CustomerDetails {
 
 /// Class used to represent one's phone information
 
-class Phone : Serializable {
+class Phone: Serializable {
     var countryCode: String?
     var number: String?
     
@@ -121,7 +121,7 @@ class Phone : Serializable {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a Phone instance
+    @param data: Dictionary [String: AnyObject] containing a JSON representation of a Phone instance
     
     */
 
@@ -137,7 +137,7 @@ class Phone : Serializable {
     
     Function returning the JSON representation of this Phone instance
     
-    :returns: Dictionary [String: AnyObject] containing the JSON components of the instance
+    @return Dictionary [String: AnyObject] containing the JSON components of the instance
     
     */
     

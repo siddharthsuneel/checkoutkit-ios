@@ -1,6 +1,6 @@
 //
 //  CardInfo.swift
-//  Pods
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 20/08/2015.
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class containing the card information used for the validity checks in CardValidator
+/** Class containing the card information used for the validity checks in CardValidator */
 
 public struct CardInfo: Equatable {
     
@@ -38,19 +38,19 @@ public struct CardInfo: Equatable {
     /**
     Default constructor
     
-    :param: name : name of the card
+    @param name name of the card
     
-    :param: pattern : regular expression matching the card's code
+    @param pattern regular expression matching the card's code
     
-    :param: format : default card display format
+    @param format default card display format
     
-    :param: cardLength : array containing all the possible lengths of the card's code
+    @param cardLength array containing all the possible lengths of the card's code
     
-    :param: cvvLength : array containing all the possible lengths of the card's CVV
+    @param cvvLength array containing all the possible lengths of the card's CVV
     
-    :param: luhn : does the card's number respects the luhn validation or not
+    @param luhn does the card's number respects the luhn validation or not
     
-    :param: supported : is this card usable with Checkout services
+    @param supported is this card usable with Checkout services
     
     */
     private init(name: String, pattern: String, format: String, cardLength: [Int], cvvLength: [Int], luhn: Bool, supported: Bool) {
@@ -65,7 +65,7 @@ public struct CardInfo: Equatable {
     
 }
 
-/**
+/*
 Function used for testing purposes, returns true if the fields of both instances are identical
 */
 public func ==(lhs: CardInfo, rhs: CardInfo) -> Bool {

@@ -1,6 +1,6 @@
 //
 //  Log.swift
-//  Pods
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 24/08/2015.
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used to log activity in the console
+/** Class used to log activity in the console */
 
 public class Log {
     private static let PATTERN_COMPACT_PRINT: String = "[\\n\\s]+"
@@ -35,7 +35,7 @@ public class Log {
     
     Prints an information message in the console and when it occurred
     
-    :param: message : String containing the message to log
+    @param message String containing the message to log
     
     */
     
@@ -49,7 +49,7 @@ public class Log {
     
     Prints a warning message in the console and when it occurred
     
-    :param: message : String containing the message to log
+    @param message String containing the message to log
     
     */
     
@@ -63,7 +63,7 @@ public class Log {
     
     Prints an error message in the console and when it occurred
     
-    :param: message : String containing the message to log
+    @param message String containing the message to log
     
     */
     

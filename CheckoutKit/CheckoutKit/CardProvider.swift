@@ -1,6 +1,6 @@
 //
 //  CardProvider.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 13/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used to represent a card provider
+/** Class used to represent a card provider */
 
 public class CardProvider: Serializable, Equatable {
     public var id: String!
@@ -19,7 +19,7 @@ public class CardProvider: Serializable, Equatable {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a CardProvider instance
+    @param data Dictionary [String: AnyObject] containing a JSON representation of a CardProvider instance
     
     */
     
@@ -37,11 +37,11 @@ public class CardProvider: Serializable, Equatable {
     
     Default constructor
     
-    :param: id : String containing the id of the card provider
+    @param id String containing the id of the card provider
     
-    :param: name : String containing the name of the card provider
+    @param name String containing the name of the card provider
     
-    :param: cvvRequired : boolean, if the cvv is required for this card provider
+    @param cvvRequired boolean, if the cvv is required for this card provider
     
     */
     public init(id: String, name: String, cvvRequired: Bool) {
@@ -52,7 +52,7 @@ public class CardProvider: Serializable, Equatable {
     
 }
 
-/**
+/*
 Function used for testing purposes, returns true if the fields of both instances are identical
 */
 public func ==(lhs: CardProvider, rhs: CardProvider) -> Bool {

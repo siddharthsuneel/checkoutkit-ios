@@ -1,6 +1,6 @@
 //
 //  CardValidator.swift
-//  Pods
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 19/08/2015.
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-///  Class containing verification methods about cards numbers, CVV, expiry dates, and useful constants about card types
+/**  Class containing verification methods about cards numbers, CVV, expiry dates, and useful constants about card types */
 
 public class CardValidator {
     
@@ -19,9 +19,9 @@ public class CardValidator {
     
     Test if the string is composed exclusively of digits
     
-    :param: entry : String to be tested
+    @param entry String to be tested
     
-    :returns: result of the test
+    @return result of the test
     
     */
     
@@ -33,11 +33,11 @@ public class CardValidator {
     
     Sanitizes any string given as a parameter
     
-    :param: entry : String to be cleaned
+    @param entry String to be cleaned
     
-    :param: isNumber : boolean, if set, the method removes all non digit characters, otherwise only the - and spaces
+    @param isNumber boolean, if set, the method removes all non digit characters, otherwise only the - and spaces
     
-    :returns: cleaned string
+    @return cleaned string
     
     */
     
@@ -50,9 +50,9 @@ public class CardValidator {
     
     Sanitizes the card's name using the regular expression above
     
-    :param: entry : String to be cleaned
+    @param entry String to be cleaned
     
-    :returns: cleaned string
+    @return cleaned string
     
     */
     
@@ -64,9 +64,9 @@ public class CardValidator {
     
     Returns the CardInfo element corresponding to the given number
     
-    :param: number : String containing the card's number
+    @param number String containing the card's number
     
-    :returns: CardInfo element corresponding to num or null if it was not recognized
+    @return CardInfo element corresponding to num or null if it was not recognized
     
     */
     
@@ -87,9 +87,9 @@ public class CardValidator {
     
     Applies the Luhn Algorithm to the given card number
     
-    :param: number : String containing the card's number to be tested
+    @param number String containing the card's number to be tested
     
-    :returns: boolean containing the result of the computation
+    @return boolean containing the result of the computation
     
     */
     
@@ -120,9 +120,9 @@ public class CardValidator {
     
     Checks if the card's number is valid by identifying the card's type and checking its conditions
     
-    :param: number : String containing the card's code to be verified
+    @param number String containing the card's code to be verified
     
-    :returns: boolean containing the result of the verification
+    @return boolean containing the result of the verification
     
     */
     
@@ -149,11 +149,11 @@ public class CardValidator {
     
     Checks if the card is still valid
     
-    :param: month : String containing the expiring month of the card
+    @param month String containing the expiring month of the card
     
-    :param: year : String containing the expiring year of the card
+    @param year String containing the expiring year of the card
     
-    :returns: boolean containing the result of the verification
+    @return boolean containing the result of the verification
     
     */
     
@@ -171,11 +171,11 @@ public class CardValidator {
     
     Checks if the card is still valid
     
-    :param: month : int containing the expiring month of the card
+    @param month int containing the expiring month of the card
     
-    :param: year : int containing the expiring year of the card
+    @param year int containing the expiring year of the card
     
-    :returns: boolean containing the result of the verification
+    @return boolean containing the result of the verification
     
     */
     
@@ -195,11 +195,11 @@ public class CardValidator {
     
     Checks if the CVV is valid for a given card's type
     
-    :param: cvv : String containing the value of the CVV
+    @param cvv String containing the value of the CVV
     
-    :param: card : Cards element containing the card's type
+    @param card Cards element containing the card's type
     
-    :returns: boolean containing the result of the verification
+    @return boolean containing the result of the verification
     
     */
     
@@ -216,11 +216,11 @@ public class CardValidator {
     
     Checks if the CVV is valid for a given card's type
     
-    :param: cvv : int containing the value of the CVV
+    @param cvv int containing the value of the CVV
     
-    :param: card : Cards element containing the card's type
+    @param card Cards element containing the card's type
     
-    :returns: boolean containing the result of the verification
+    @return boolean containing the result of the verification
     
     */
     

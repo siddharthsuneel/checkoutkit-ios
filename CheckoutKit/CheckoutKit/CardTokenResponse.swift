@@ -1,6 +1,6 @@
 //
 //  CardTokenResponse.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 17/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-/// Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this.
+/** Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this. */
 
 
-public class CardTokenResponse : Serializable {
+public class CardTokenResponse: Serializable {
     
     public var cardToken: String!
     public var liveMode: Bool!
@@ -22,15 +22,15 @@ public class CardTokenResponse : Serializable {
     /**
     Default constructor
     
-    :param: cardToken : String containing the id of the card
+    @param cardToken String containing the id of the card
     
-    :param: liveMode : boolean, if the request was on a live server or not
+    @param liveMode boolean, if the request was on a live server or not
     
-    :param: created : String containing time information about the creation of the card token
+    @param created String containing time information about the creation of the card token
     
-    :param: used : boolean, if the token has already been used or not
+    @param used boolean, if the token has already been used or not
     
-    :param: card : CardToken object containing all the information needed to charge the card
+    @param card CardToken object containing all the information needed to charge the card
     
     */
     
@@ -46,7 +46,7 @@ public class CardTokenResponse : Serializable {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a CardTokenResponse instance
+    @param data Dictionary [String: AnyObject] containing a JSON representation of a CardTokenResponse instance
     
     */
     

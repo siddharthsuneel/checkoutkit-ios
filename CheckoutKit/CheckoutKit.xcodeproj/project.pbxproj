@@ -107,22 +107,13 @@
 		E1EAEAC51B8DAD0600F3003E /* CheckoutKit */ = {
 			isa = PBXGroup;
 			children = (
-				E1EAEB251B8DAFE900F3003E /* Card.swift */,
-				E1EAEB261B8DAFE900F3003E /* CardInfo.swift */,
-				E1EAEB271B8DAFE900F3003E /* CardProvider.swift */,
-				E1EAEB281B8DAFE900F3003E /* CardProviderResponse.swift */,
-				E1EAEB291B8DAFE900F3003E /* CardToken.swift */,
-				E1EAEB2A1B8DAFE900F3003E /* CardTokenResponse.swift */,
+				E1F6FE931B95F92D00BAF027 /* models */,
 				E1EAEB2B1B8DAFE900F3003E /* CardValidator.swift */,
 				E1EAEB2C1B8DAFE900F3003E /* CheckoutKit.swift */,
-				E1EAEB2D1B8DAFE900F3003E /* CustomerDetails.swift */,
 				E1EAEB2E1B8DAFE900F3003E /* Error.swift */,
-				E1EAEB2F1B8DAFE900F3003E /* HTTPRequest.swift */,
+				E1F6FE941B95F95C00BAF027 /* httpconnector */,
 				E1EAEB301B8DAFE900F3003E /* Log.swift */,
 				E1EAEB311B8DAFE900F3003E /* Regex.swift */,
-				E1EAEB321B8DAFE900F3003E /* Response.swift */,
-				E1EAEB331B8DAFE900F3003E /* ResponseError.swift */,
-				E1EAEB341B8DAFE900F3003E /* Serializable.swift */,
 				E1EAEAC81B8DAD0600F3003E /* CheckoutKit.h */,
 				E1EAEAC61B8DAD0600F3003E /* Supporting Files */,
 			);
@@ -152,6 +143,31 @@
 				E1EAEAD41B8DAD0600F3003E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E1F6FE931B95F92D00BAF027 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				E1EAEB341B8DAFE900F3003E /* Serializable.swift */,
+				E1EAEB251B8DAFE900F3003E /* Card.swift */,
+				E1EAEB261B8DAFE900F3003E /* CardInfo.swift */,
+				E1EAEB271B8DAFE900F3003E /* CardProvider.swift */,
+				E1EAEB281B8DAFE900F3003E /* CardProviderResponse.swift */,
+				E1EAEB291B8DAFE900F3003E /* CardToken.swift */,
+				E1EAEB2A1B8DAFE900F3003E /* CardTokenResponse.swift */,
+				E1EAEB2D1B8DAFE900F3003E /* CustomerDetails.swift */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		E1F6FE941B95F95C00BAF027 /* httpconnector */ = {
+			isa = PBXGroup;
+			children = (
+				E1EAEB2F1B8DAFE900F3003E /* HTTPRequest.swift */,
+				E1EAEB321B8DAFE900F3003E /* Response.swift */,
+				E1EAEB331B8DAFE900F3003E /* ResponseError.swift */,
+			);
+			name = httpconnector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,6 +1,6 @@
 //
 //  Error.swift
-//  Pods
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 20/08/2015.
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Custom errors used for validation errors
+/** Custom errors used for validation errors */
 
 public enum CardError: String {
     case InvalidNumber = "Invalid card number"

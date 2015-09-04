@@ -1,6 +1,6 @@
 //
 //  CardProviderResponse.swift
-//  test2
+//  CheckoutKit
 //
 //  Created by Manon Henrioux on 13/08/2015.
 //  Copyright (c) 2015 Checkout.com. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this.
+/** Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this. */
 
 public class CardProviderResponse: Serializable {
     public var object: String!
@@ -19,7 +19,7 @@ public class CardProviderResponse: Serializable {
     
     Convenience constructor
     
-    :param: data: Dictionary [String: AnyObject] containing a JSON representation of a CardProviderResponse instance
+    @param data Dictionary [String: AnyObject] containing a JSON representation of a CardProviderResponse instance
     
     */
     
@@ -47,11 +47,11 @@ public class CardProviderResponse: Serializable {
     
     Default constructor
     
-    :param: object : String containing type of the JSON data
+    @param object String containing type of the JSON data
     
-    :param: count : int containing the number of elements in the JSON data
+    @param count int containing the number of elements in the JSON data
     
-    :param: data : String containing the JSON data
+    @param data String containing the JSON data
     
     */
     public init(count: Int, object: String, data: [CardProvider]) {
