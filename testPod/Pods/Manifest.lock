@@ -1,0 +1,14 @@
+PODS:
+  - CheckoutKit (1.0.0)
+
+DEPENDENCIES:
+  - CheckoutKit (from `../CheckoutKit`)
+
+EXTERNAL SOURCES:
+  CheckoutKit:
+    :path: ../CheckoutKit
+
+SPEC CHECKSUMS:
+  CheckoutKit: 06e3d0756dacbc6f2dcb3f0a8d4a4e0149dca706
+
+COCOAPODS: 0.38.2
