@@ -1,2 +1,0 @@
-use_frameworks!
-pod 'CheckoutKit', :git => 'https://github.com/CKOTech/checkoutkit-ios', :tag => '1.0.0'
