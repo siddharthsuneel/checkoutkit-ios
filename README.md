@@ -16,10 +16,14 @@ Then run ```pod install``` and the framework is ready to use.
 
 __Carthage__
 
+Add the following line to your ```cartfile```: ```github "CKOTech/checkoutkit-ios" >= 1.0.0```.
+Then run ```carthage update```. It will download the latest version of the CheckoutKit framework. More information about Cartage is available [here](https://github.com/Carthage/Carthage).
 
 __Manually__
 
 Otherwise, the framework source code can be downloaded and manually added in your Xcode workspace.
+Download or clone the [github repository](https://github.com/CKOTech/checkoutkit-ios). In your workspace, choose File > "Add files to ... " and select ```CheckoutKit/CheckoutKit.xcodeproj```.
+Go to your project > General > Linked Frameworks and Libraries and add ```CheckoutKit.framework```.
 
 ### Example
 
