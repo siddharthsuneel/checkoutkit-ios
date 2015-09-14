@@ -11,7 +11,8 @@
 build/
 DerivedData
 
-testPod/
+Carthage/
+
 
 ## Various settings
 *.pbxuser
