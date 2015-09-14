@@ -3,8 +3,23 @@
 Swift 1.2, iOS 8.0 and later
 
 ### How to use the library
-###TODO
-Carthage / cocoapods
+
+__Cocoapods__
+
+The framework is available on Cocoapods. The following needs to be added in the ```Podfile```:
+```
+use_frameworks!
+pod 'CheckoutKit'
+```
+
+Then run ```pod install``` and the framework is ready to use.
+
+__Carthage__
+
+
+__Manually__
+
+Otherwise, the framework source code can be downloaded and manually added in your Xcode workspace.
 
 ### Example
 
