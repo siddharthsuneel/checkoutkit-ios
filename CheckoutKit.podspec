@@ -1,11 +1,3 @@
-#
-#  Be sure to run `pod spec lint CheckoutKit.podspec' to ensure this is a
-#  valid spec and to remove all comments including this before submitting the spec.
-#
-#  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
-#  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
-#
-
 Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -20,16 +12,10 @@ Pod::Spec.new do |s|
   s.summary      = "iOS version of Checkout Kit that implements Card Tokenisation"
 
   s.description  = <<-DESC
-                   A longer description of CheckoutKit in Markdown format.
-
-                   * Think: Why did you write this? What is the focus? What does it do?
-                   * CocoaPods will be using this to generate tags, and improve search results.
-                   * Try to keep it short, snappy and to the point.
-                   * Finally, don't worry about the indent, CocoaPods strips it!
+                   This framework fasten Checkout's integration process in an iOS native application. It allows to any Checkout user to generate card tokens based on card information, in order to charge that card. All the details about functionalities and integration can be found on [here](https://github.com/CKOTech/checkoutkit-ios).
                    DESC
 
   s.homepage     = "https://github.com/CKOTech/checkoutkit-ios"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -40,7 +26,6 @@ Pod::Spec.new do |s|
   #
 
   s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -54,9 +39,7 @@ Pod::Spec.new do |s|
   #
 
   s.author             = { "Manon Henrioux" => "manon.henrioux@checkout.com" }
-  # Or just: s.author    = "Manon Henrioux"
-  # s.authors            = { "Manon Henrioux" => "" }
-  # s.social_media_url   = "http://twitter.com/Manon Henrioux"
+
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -65,12 +48,6 @@ Pod::Spec.new do |s|
   #
 
   s.platform     = :ios, "8.0"
-  # s.platform     = :ios, "5.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,9 +68,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "CheckoutKit/CheckoutKit/"
-  # s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
 
 
 end
