@@ -8,14 +8,14 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CheckoutKit"
-  s.version      = "1.0.0"
+  s.version      = "2.0.0"
   s.summary      = "iOS version of Checkout Kit that implements Card Tokenisation"
 
   s.description  = <<-DESC
                    This framework fasten Checkout's integration process in an iOS native application. It allows to any Checkout user to generate card tokens based on card information, in order to charge that card. All the details about functionalities and integration can be found on [here](https://github.com/CKOTech/checkoutkit-ios).
                    DESC
 
-  s.homepage     = "https://github.com/CKOTech/checkoutkit-ios"
+  s.homepage     = "~"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -56,7 +56,10 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/CKOTech/checkoutkit-ios.git", :tag => "1.0.0" }
+  s.source       = { 
+    :git => "https://github.com/CKOTech/checkoutkit-ios.git", :tag => "1.0.0" 
+    :git => "https://github.com/CKOTech/checkoutkit-ios.git", :tag => "2.0.0" 
+    }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

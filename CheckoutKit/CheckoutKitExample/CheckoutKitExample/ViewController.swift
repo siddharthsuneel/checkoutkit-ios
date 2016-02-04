@@ -73,7 +73,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
         return pickerContent[component].count
     }
     
-    func pickerView(bigPicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String!{
+    func pickerView(bigPicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         
         return pickerContent[component][row]
         
@@ -131,47 +131,47 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
     
     @IBAction func getCardToken(sender: AnyObject) {
         
-        var error: NSError?
-        var ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14", error: &error)
-        if ck == nil {
+        var ck: CheckoutKit? = nil
+        do {
+        try ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14")
+        } catch _ as NSError {
             let errorController = self.storyboard?.instantiateViewControllerWithIdentifier("ErrorController") as! ErrorController
             self.presentViewController(errorController, animated: true, completion: nil)
-        } else {
-            if (validateCardInfo(numberField.text, expYear: year, expMonth: month, cvv: cvvField.text)) {
+        }
+        if ck != nil {
+            if (validateCardInfo(numberField.text!, expYear: year, expMonth: month, cvv: cvvField.text!)) {
                 resetFieldsColor()
-            var err: NSError?
-            var card = Card(name: nameField.text, number: numberField.text, expYear: year, expMonth: month, cvv: cvvField.text, billingDetails: nil, error: &err)
-            if card == nil {
-                if (err!.domain == CardError.InvalidCVV.rawValue) {
-                    cvvField.backgroundColor = errorColor
-                } else if (err!.domain == CardError.InvalidExpiryDate.rawValue) {
-                    dateField.backgroundColor = errorColor
-                } else if (err!.domain == CardError.InvalidNumber.rawValue) {
-                    numberField.backgroundColor = errorColor
-                }
-            } else {
+                var card: Card? = nil
+                do {
+            try card = Card(name: nameField.text!, number: numberField.text!, expYear: year, expMonth: month, cvv: cvvField.text!, billingDetails: nil)
+                } catch let err as CardError {
+                    switch(err) {
+                    case CardError.InvalidCVV: cvvField.backgroundColor = errorColor
+                    case CardError.InvalidExpiryDate: dateField.backgroundColor = errorColor
+                    case CardError.InvalidNumber: numberField.backgroundColor = errorColor
+                    }
+                } catch _ as NSError {
+                    
+            }
+            if card != nil {
             ck!.createCardToken(card!, completion:{ (resp: Response<CardTokenResponse>) -> Void in
             if (resp.hasError) {
                 let errorController = self.storyboard?.instantiateViewControllerWithIdentifier("ErrorController") as! ErrorController
-                self.presentViewController(errorController, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(errorController, animated: true, completion: nil)
+                });
             } else {
                 let successController = self.storyboard?.instantiateViewControllerWithIdentifier("SuccessController") as! SuccessController
-                self.presentViewController(successController, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(successController, animated: true, completion: nil)
+                    });
             }
         })
             }
         }
     }
     }
-    
-//    private func errorMessage(error: String) {
-//        let alert = UIAlertView()
-//        alert.title = "Error"
-//        alert.message = error
-//        alert.addButtonWithTitle("Try again")
-//        alert.show()
-//    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

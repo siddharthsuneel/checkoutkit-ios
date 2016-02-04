@@ -73,38 +73,31 @@ class CheckoutKitTests: XCTestCase {
     let cd: CustomerDetails = CustomerDetails(address1: "100 test street", address2: "", postCode: "E1", country: "UK", city: "London", state: "", phoneNumber: "44", phoneCountryCode: "00000000")
     
     func testWrongPublicKey() {
-        var err: NSError?
         CheckoutKit.destroy()
-        var ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2", error: &err)
-        expect(err).toNot(beNil())
-        println(err)
-        expect(err!.domain).to(equal(CheckoutError.InvalidPK.rawValue))
+        expect { try CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2") }.to(throwError(errorType: CheckoutError.self))
     }
     
     func testWrongCardNumber() {
-        var err: NSError?
-        var c = Card(name: "", number: "4242424242424252", expYear: "19", expMonth: "6", cvv: "100", billingDetails: cd, error: &err)
-        expect(err).toNot(beNil())
-        expect(err!.domain).to(equal(CardError.InvalidNumber.rawValue))
+        expect{ try Card(name: "", number: "4242424242424252", expYear: "19", expMonth: "6", cvv: "100", billingDetails: self.cd) }.to(throwError(errorType: CardError.self))
     }
     
     func testWrongExpiryDate() {
-        var err: NSError?
-        var c = Card(name: "", number: "4242424242424242", expYear: "1999", expMonth: "2", cvv: "100", billingDetails: cd, error: &err)
-        expect(err).toNot(beNil())
-        expect(err!.domain).to(equal(CardError.InvalidExpiryDate.rawValue))
+        expect{ try Card(name: "", number: "4242424242424242", expYear: "1999", expMonth: "2", cvv: "100", billingDetails: self.cd) }.to(throwError(errorType: CardError.self))
     }
     
     func testWrongCVV() {
-        var err: NSError?
-        var c = Card(name: "", number: "4242424242424242", expYear: "18", expMonth: "9", cvv: "10000", billingDetails: cd, error: &err)
-        expect(err).toNot(beNil())
-        expect(err!.domain).to(equal(CardError.InvalidCVV.rawValue))
+        expect{ try Card(name: "", number: "4242424242424242", expYear: "18", expMonth: "9", cvv: "10000", billingDetails: self.cd) }.to(throwError(errorType: CardError.self))
     }
     
     func testGetCardProviders() {
         var err: NSError?
-        var ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14", error: &err)
+        var ck: CheckoutKit?
+        do {
+            ck = try CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14")
+        } catch let error as NSError {
+            err = error
+            ck = nil
+        }
         expect(err).to(beNil())
         ck!.getCardProviders({(resp: Response<CardProviderResponse>) -> Void in
             expect(resp.hasError).to(beFalse())
@@ -119,9 +112,21 @@ class CheckoutKitTests: XCTestCase {
     
     func testCreateCardToken() {
         var err: NSError?
-        var ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14", error: &err)
+        var ck: CheckoutKit?
+        do {
+            ck = try CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14")
+        } catch let error as NSError {
+            err = error
+            ck = nil
+        }
         expect(err).to(beNil())
-        var c = Card(name: "", number: "4242424242424242", expYear: "19", expMonth: "6", cvv: "100", billingDetails: cd, error: &err)
+        var c: Card?
+        do {
+            c = try Card(name: "", number: "4242424242424242", expYear: "19", expMonth: "6", cvv: "100", billingDetails: cd)
+        } catch let error as NSError {
+            err = error
+            c = nil
+        }
         expect(err).to(beNil())
         ck!.createCardToken(c!, completion: {(resp: Response<CardTokenResponse>) -> Void in
             expect(resp.hasError).to(beFalse())
@@ -131,12 +136,8 @@ class CheckoutKitTests: XCTestCase {
     }
     
     func testNoPk() {
-        var err: NSError?
         CheckoutKit.destroy()
-        var ck = CheckoutKit.getInstance(&err)
-        expect(err).toNot(beNil())
-        println(err)
-        expect(err!.domain).to(equal(CheckoutError.NoPK.rawValue))
+        expect { try CheckoutKit.getInstance() }.to(throwError(errorType: CheckoutError.self))
     }
 
 }

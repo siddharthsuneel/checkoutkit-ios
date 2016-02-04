@@ -30,7 +30,7 @@ public class HTTPRequest {
     */
     
     public class func getRequest<T: Serializable>(url: String, pk: String, debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) {
-        var httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
+        let httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
         httpConn.sendRequest(url, method: HTTPMethod.GET, payload: "", pk: pk)
     }
     
@@ -53,7 +53,7 @@ public class HTTPRequest {
     */
     
     public class func postRequest<T: Serializable>(url: String, payload: String, pk: String, debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) {
-            var httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
+            let httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
             httpConn.sendRequest(url, method: HTTPMethod.POST, payload: payload, pk: pk)
     }
     
@@ -61,27 +61,29 @@ public class HTTPRequest {
     Utility function used by getRequest and postRequest handling the JSON responses
     */
     private class func getHTTPConnector<T: Serializable>(debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) -> HTTPConnector {
-        var httpConn = HTTPConnector(handler:{ (data: NSData, status: Int) -> Void in
-            
-            let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String: AnyObject]
+        let httpConn = HTTPConnector(handler:{ (data: NSData, status: Int, error: Bool) -> Void in
+            if (error) {
+                completion(resp: Response<T>(error: nil, status: -1))
+            } else {
+            let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String: AnyObject]
             if jsonResult == nil {
                 logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
             } else {
                 var resp: Response<T>
                 if status == 200 {
-                    var model = T(data: jsonResult!)
+                    let model = T(data: jsonResult!)
                     if model == nil {
                         logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
                     } else {
                         resp = Response<T>(model: model!, status: status)
                         
                         if(debug){
-                            logger.info("** HttpResponse**  Status 200 OK\(jsonResult!.description)")
+                            logger.info("** HttpResponse**  Status 200 OK \(jsonResult!.description)")
                         }
                         completion(resp: resp)
                     }
                 } else {
-                    var e = ResponseError<T>(data: jsonResult!)
+                    let e = ResponseError<T>(data: jsonResult!)
                     if e == nil {
                         logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
                         return
@@ -93,6 +95,7 @@ public class HTTPRequest {
                     completion(resp: resp)
                 }
             }
+            }
             
             }, debug: debug, log: logger)
         return httpConn
@@ -101,10 +104,10 @@ public class HTTPRequest {
 
 /// Class used to abstract the HTTP connection details
 
-class HTTPConnector: NSObject {
+class HTTPConnector {
     
     var httpStatus: Int = -1
-    var handler: (data: NSData, status: Int) -> Void
+    var handler: (data: NSData, status: Int, error: Bool) -> Void
     var log: Log
     var debug: Bool
     
@@ -112,55 +115,17 @@ class HTTPConnector: NSObject {
     
     Default constructor
     
-    @param handler: handler having NSData (with the content of the response) and status (Int containing the HTTP status of the request) as parameters
+    @param handler: handler having NSData (with the content of the response) status (Int containing the HTTP status of the request) and a Boolean error (true if there is a problem with the response) as parameters
     
     @param debug Bool if the logging is activated or not
     
     @param log Log instance with the logger it should log into
     
     */
-    init(handler: (data: NSData, status: Int) -> Void, debug: Bool, log: Log) {
+    init(handler: (data: NSData, status: Int, error: Bool) -> Void, debug: Bool, log: Log) {
         self.handler = handler
         self.debug = debug
         self.log = log
-    }
-
-    /**
-    
-    Redefinition due to the delegate of NSURLConnection, called when the response contains data
-    
-    */
-    
-    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
-        handler(data: data, status: httpStatus)
-        
-    }
-    
-    /**
-    
-    Redefinition due to the delegate of NSURLConnection, called when the a response is received
-    */
-    
-    func connection(connection: NSURLConnection!, didReceiveResponse response: NSHTTPURLResponse!) {
-        httpStatus = response.statusCode
-    }
-    
-    /**
-    
-    Redefinition due to the delegate of NSURLConnection, called when the response is finished loading
-    
-    */
-    
-    func connectionDidFinishLoading(connection: NSURLConnection!) {
-    }
-    
-    /**
-    
-    Redefinition due to the delegate of NSURLConnection, called when the request failed and we received an error back
-    */
-    
-    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
-        log.error(error.description)
     }
     
     /**
@@ -170,7 +135,7 @@ class HTTPConnector: NSObject {
     */
     
     func sendRequest(url: String, method: HTTPMethod, payload: String, pk: String) {
-        var request: NSMutableURLRequest = NSMutableURLRequest()
+        let request: NSMutableURLRequest = NSMutableURLRequest()
         request.URL = NSURL(string: url)
         request.HTTPMethod = "\(method.rawValue)"
         
@@ -184,7 +149,19 @@ class HTTPConnector: NSObject {
             log.info("**Payload**   \(payload)")
         }
         
-        var connection = NSURLConnection(request: request, delegate: self, startImmediately: true)
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
+            if error != nil {
+                self.handler(data: NSData(), status: -1, error: true)
+                self.log.info("HEEEEEEEEEELLLO")
+                self.log.error(error!.description)
+            } else {
+                let httpResponse = response as? NSHTTPURLResponse
+                self.handler(data: data!, status: httpResponse!.statusCode, error: false)
+            }
+        })
+        task.resume()
     }
 }
 
