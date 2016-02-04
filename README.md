@@ -11,10 +11,11 @@ __Cocoapods__
 The framework is available on Cocoapods. The following needs to be added in the ```Podfile```:
 ```
 use_frameworks!
-pod 'CheckoutKit', ~> '2.0'
+pod 'CheckoutKit', '~>2.0.0'
+xcodeproj 'path/to/proj.xcodeproj'
 ```
 
-Then run ```pod install``` and the framework is ready to use.
+Then run ```pod install``` and the framework is ready to be used.
 
 __Carthage__
 
