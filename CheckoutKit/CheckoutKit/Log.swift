@@ -41,8 +41,8 @@ public class Log {
     
     public func info(message: String) -> Void {
         printDate()
-        var msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
-        println("INFO: \(msg)")
+        let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
+        print("INFO: \(msg)")
     }
     
     /**
@@ -55,8 +55,8 @@ public class Log {
     
     public func warn(message: String) -> Void {
         printDate()
-        var msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
-        println("WARNING: \(msg)")
+        let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
+        print("WARNING: \(msg)")
     }
     
     /**
@@ -69,8 +69,8 @@ public class Log {
     
     public func error(message: String) -> Void {
         printDate()
-        var msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
-        println("ERROR: \(msg)")
+        let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
+        print("ERROR: \(msg)")
     }
     
     /*
@@ -83,6 +83,6 @@ public class Log {
         let date = NSDate()
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        println(formatter.stringFromDate(date))
+        print(formatter.stringFromDate(date))
     }
 }

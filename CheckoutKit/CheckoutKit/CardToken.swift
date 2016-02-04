@@ -17,7 +17,6 @@ public class CardToken: Serializable {
     public var billDetails: CustomerDetails?
     public var last4: String!
     public var paymentMethod: String!
-    public var fingerprint: String!
     public var name: String!
     public var id: String!
     
@@ -37,21 +36,18 @@ public class CardToken: Serializable {
     
     @param paymentMethod String containing the payment method corresponding to the card
     
-    @param fingerprint String containing the fingerprint corresponding to the card
-    
     @param name String corresponding the the card's owner name
     
     @param cardToken String containing the card token
     
     */
     
-    public init(expMonth: String, expYear: String, billDetails: CustomerDetails, last4: String, paymentMethod: String, fingerprint: String, name: String, cardToken: String) {
+    public init(expMonth: String, expYear: String, billDetails: CustomerDetails, last4: String, paymentMethod: String, name: String, cardToken: String) {
         self.expYear = expYear
         self.expMonth = expMonth
         self.billDetails = billDetails
         self.last4 = last4
         self.paymentMethod = paymentMethod
-        self.fingerprint = fingerprint
         self.name = name
         self.id = cardToken
     }
@@ -69,22 +65,19 @@ public class CardToken: Serializable {
             month = data["expiryMonth"] as? String,
             id = data["id"] as? String,
             last4 = data["last4"] as? String,
-            paymentMethod = data["paymentMethod"] as? String,
-            fingerprint = data["fingerprint"] as? String,
-            name = data["name"] as? String {
-              
+            paymentMethod = data["paymentMethod"] as? String {
                 self.expMonth = month
                 self.expYear = year
                 
                 self.id = id
                 self.last4 = last4
                 self.paymentMethod = paymentMethod
-                self.fingerprint = fingerprint
-                self.name = name
+                if let name = data["name"] as? String {
+                    self.name = name
+                }
                 if let billDetails = data["billingDetails"] as? [String: AnyObject] {
                     self.billDetails = CustomerDetails(data: billDetails)
                 }
-                
         } else {
             return nil
         }
