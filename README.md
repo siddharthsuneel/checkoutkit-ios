@@ -114,5 +114,5 @@ Most of the activity of the **CheckoutKit** is logged either as information, war
 ### Unit Tests
 
 All the unit tests are written using XCTest and Nimble and reside in CheckoutKit/CheckoutKitTests. 
-You need to install [Nimble](https://github.com/Quick/Nimble) in order to run the tests.
+You need to install [Nimble v3.0](https://github.com/Quick/Nimble/tree/v3.0.0) in order to run the tests.
 This can be done by running ```pod install``` inside the CheckoutKit project (the Podfile has already been written), or installing it by any other mean.
