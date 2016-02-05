@@ -44,18 +44,19 @@ public class CheckoutKit {
     
     @param logger Log instance for logging purposes if debug mode is activated
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    private init(pk: String, env: Environment, debug: Bool, logger: Log) throws {
+    private init?(pk: String, env: Environment, debug: Bool, logger: Log, error: NSErrorPointer) {
         self.env = env
         self.logging = debug
         self.logger = logger
 
-        if !Regex(pattern: PUBLIC_KEY_REGEX_VALIDATION).matches(pk) {
+        if !Regex(pattern: PUBLIC_KEY_REGEX_VALIDATION).matches(pk) && error != nil {
+            error.memory = NSError(domain: CheckoutError.InvalidPK.rawValue, code: -1, userInfo:nil)
             logger.info("**Wrong public key**   \(pk)")
-            throw CheckoutError.InvalidPK
+            return nil
         }
         self.pk = pk
         if(self.logging){
@@ -75,13 +76,13 @@ public class CheckoutKit {
     
     @param logger Log instance for logging purposes if debug mode is activated
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, env: Environment, debug: Bool, logger: Log) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, env: Environment, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: env, debug: debug, logger: logger)
+            ck = CheckoutKit(pk: pk, env: env, debug: debug, logger: logger, error: error)
         }
         return ck
     }
@@ -92,13 +93,13 @@ public class CheckoutKit {
     
     @param pk String containing the merchant's public key
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: Log.getLog())
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: Log.getLog(), error: error)
         }
         return ck
     }
@@ -108,15 +109,16 @@ public class CheckoutKit {
 
     Function used for the Singleton Pattern, returns a unique CheckoutKit instance, to be used once the CheckoutKit object has been instantiated to retrieve it
     
-    @throws CheckoutError if an error occurs, the public key is invalid or the CheckoutKit instance has not been instantiated before
+    @param error NSErrorPointer if an error occurs, the public key is invalid or the CheckoutKit instance has not been instantiated before, the error object is defined accordingly
     
     @returns null if getInstance has not been called before specifying all the parameters or the CheckoutKit object
 
     */
 
-    public class func getInstance() throws -> CheckoutKit? {
-        if (ck == nil) {
-            throw CheckoutError.NoPK
+    public class func getInstance(error: NSErrorPointer) -> CheckoutKit? {
+        if (ck == nil && error != nil) {
+            error.memory = NSError(domain: CheckoutError.NoPK.rawValue, code: -1, userInfo:nil)
+            return nil
         }
         return ck
     }
@@ -131,13 +133,13 @@ public class CheckoutKit {
     
     @param logger Log instance for logging purposes if debug mode is activated
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, debug: Bool, logger: Log) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, debug: Bool, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: logger)
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: logger, error: error)
         }
         return ck
     }
@@ -152,13 +154,13 @@ public class CheckoutKit {
     
     @param logger Log instance for logging purposes if debug mode is activated
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, env: Environment, logger: Log) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, env: Environment, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: env, debug: true, logger: logger)
+            ck = CheckoutKit(pk: pk, env: env, debug: true, logger: logger, error: error)
         }
         return ck
     }
@@ -173,13 +175,13 @@ public class CheckoutKit {
     
     @param debug boolean, if the debug mode is activated or not, default is true
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, env: Environment, debug: Bool) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, env: Environment, debug: Bool, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: env, debug: debug, logger: Log.getLog())
+            ck = CheckoutKit(pk: pk, env: env, debug: debug, logger: Log.getLog(), error: error)
         }
         return ck
     }
@@ -192,13 +194,13 @@ public class CheckoutKit {
     
     @param env Environment object containing the information of the merchant's environment, default is SANDBOX
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, env: Environment) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, env: Environment, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: env, debug: true, logger: Log.getLog())
+            ck = CheckoutKit(pk: pk, env: env, debug: true, logger: Log.getLog(), error: error)
         }
         return ck
     }
@@ -211,13 +213,13 @@ public class CheckoutKit {
     
     @param logger Log instance for logging purposes if debug mode is activated
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, logger: Log) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, logger: Log, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: logger)
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: logger, error: error)
         }
         return ck
     }
@@ -230,13 +232,13 @@ public class CheckoutKit {
     
     @param debug boolean, if the debug mode is activated or not, default is true
     
-    @throws CheckoutError if an error occurs or the public key is invalid
+    @param error NSErrorPointer if an error occurs or the public key is invalid, the error object is defined accordingly
     
     */
     
-    public class func getInstance(pk: String, debug: Bool) throws -> CheckoutKit? {
+    public class func getInstance(pk: String, debug: Bool, error: NSErrorPointer) -> CheckoutKit? {
         if (ck == nil) {
-            ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: Log.getLog())
+            ck = CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: Log.getLog(), error: error)
         }
         return ck
     }
@@ -290,7 +292,7 @@ public class CheckoutKit {
         }
         var data: String = ""
         if NSJSONSerialization.isValidJSONObject(card.getJson()) {
-            let c = try? NSJSONSerialization.dataWithJSONObject(card.getJson(), options: [])
+            let c = NSJSONSerialization.dataWithJSONObject(card.getJson(), options: nil, error: nil)
             data = NSString(data: c!, encoding:NSUTF8StringEncoding)! as String
         }
         HTTPRequest.postRequest(getUrl(RESTFunction.CREATECARDTOKEN), payload: data, pk: self.pk, debug: self.logging, logger: self.logger, completion:{ (resp: Response<CardTokenResponse>) -> Void in

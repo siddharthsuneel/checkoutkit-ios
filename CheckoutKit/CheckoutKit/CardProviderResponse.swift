@@ -27,7 +27,7 @@ public class CardProviderResponse: Serializable {
         if let i = data["data"] as? [[String: AnyObject]], count = data["count"] as? Int, obj = data["object"] as? String {
             var cps: [CardProvider] = []
             for cp in i {
-                let c = CardProvider(data: cp)
+                var c = CardProvider(data: cp)
                 if c == nil {
                     return nil
                 } else {

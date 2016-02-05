@@ -21,7 +21,7 @@ public class Regex {
     
     */
     public init(pattern: String) {
-        self.internalExpression = try? NSRegularExpression(pattern: pattern, options: [])
+        self.internalExpression = NSRegularExpression(pattern: pattern, options: nil, error: nil)
     }
     
     /**
@@ -32,7 +32,7 @@ public class Regex {
     
     */
     public func matches(input: String) -> Bool {
-        let matches = self.internalExpression!.matchesInString(input, options: [], range:NSMakeRange(0, input.characters.count))
+        let matches = self.internalExpression!.matchesInString(input, options: nil, range:NSMakeRange(0, count(input)))
         return matches.count > 0
     }
     
@@ -46,6 +46,6 @@ public class Regex {
     
     */
     public func replace(input: String, template: String) -> String {
-        return self.internalExpression!.stringByReplacingMatchesInString(input, options: [], range: NSMakeRange(0, input.characters.count), withTemplate: template)
+        return self.internalExpression!.stringByReplacingMatchesInString(input, options: nil, range: NSMakeRange(0, count(input)), withTemplate: template)
     }
 }

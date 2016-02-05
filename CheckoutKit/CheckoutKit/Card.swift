@@ -32,20 +32,22 @@ public class Card {
     
     @param cvv String containing the CVV
     
-    @param billingDetails CustomerDetails object containing the information of the customer, optional
+    @param billinDetails CustomerDetails object containing the information of the customer, optional
     
-    @throws CardError if an error occurs or one of the values is invalid
+    @param error NSErrorPointer if an error occurs or one of the values is invalid, the error object is defined accordingly
     
     */
-    public init(name: String?, number: String, expYear: String, expMonth: String, cvv: String, billingDetails: CustomerDetails?) throws {
+    public init?(name: String?, number: String, expYear: String, expMonth: String, cvv: String, billingDetails: CustomerDetails?, error: NSErrorPointer) {
         
         self.name = name
-        if !CardValidator.validateCardNumber(number) {
-            throw CardError.InvalidNumber
+        if !CardValidator.validateCardNumber(number) && error != nil {
+            error.memory = NSError(domain: CardError.InvalidNumber.rawValue, code: -1, userInfo: nil)
+            return nil
         }
         
-        if !CardValidator.validateExpiryDate(expMonth, year: expYear) {
-           throw CardError.InvalidExpiryDate
+        if !CardValidator.validateExpiryDate(expMonth, year: expYear) && error != nil {
+           error.memory = NSError(domain: CardError.InvalidExpiryDate.rawValue, code: -1, userInfo: nil)
+            return nil
         }
         
         self.number = CardValidator.sanitizeEntry(number, isNumber: true)
@@ -53,8 +55,9 @@ public class Card {
         self.expYear = expYear
         
         let c = CardValidator.getCardType(number)
-        if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) {
-            throw CardError.InvalidCVV
+        if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) && error != nil {
+            error.memory = NSError(domain: CardError.InvalidCVV.rawValue, code: -1, userInfo: nil)
+            return nil
         }
         self.cvv = cvv
         self.billingDetails = billingDetails

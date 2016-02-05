@@ -42,7 +42,7 @@ public class Response<T: Serializable> {
     
     */
     
-    public init(error: ResponseError<T>?, status: Int) {
+    public init(error: ResponseError<T>, status: Int) {
         self.hasError = true
         self.model = nil
         self.error = error

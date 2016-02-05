@@ -145,7 +145,7 @@ class Phone: Serializable {
         if self.countryCode == nil || self.number == nil {
             return nil
         }
-        let dic: [String: AnyObject] = [
+        var dic: [String: AnyObject] = [
             "number": number as! AnyObject,
             "countrycode": countryCode as! AnyObject
         ]

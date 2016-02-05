@@ -12,9 +12,10 @@ The framework is available on Cocoapods. The following needs to be added in the 
 ```
 use_frameworks!
 pod 'CheckoutKit', '1.0.0'
+xcodeproj 'path/to/proj.xcodeproj'
 ```
 
-Then run ```pod install``` and the framework is ready to use.
+Then run ```pod install``` and the framework is ready to be used.
 
 __Carthage__
 
@@ -60,9 +61,9 @@ Here are more details about the parameters :
 
 If **debug** is set to true, many actions will be traced to the logging system.
 
-The available functions of ***CheckoutKit*** can be found in the documentation : JAVADOC LINK.
+The available functions of ***CheckoutKit*** can be found in the [documentation](http://developers.checkout.com/docs/mobile/ios-kit/reference/checkoutkit) (Reference for Swift 2.0).
 
-Another class is available for utility functions: ***CardValidator***. It provides static functions for validating all the card related information before processing them.
+Another class is available for utility functions: ***CardValidator***. It provides static functions for validating all the card related information before processing them. The list of the available functions is available in the [documentation](http://developers.checkout.com/docs/mobile/ios-kit/reference/cardvalidator) (Reference for Swift 2.0).
 
 
 **Create card token**
@@ -108,5 +109,6 @@ Most of the activity of the **CheckoutKit** is logged either as information, war
 
 ### Unit Tests
 
-All the unit test written using XCTest and Nimble and reside in CheckoutKit/CheckoutKitTests. 
-You need to install [Nimble](https://github.com/Quick/Nimble) in order to run the tests.
+All the unit tests are written using XCTest and Nimble and reside in CheckoutKit/CheckoutKitTests. 
+You need to install [Nimble v1.0](https://github.com/Quick/Nimble/tree/v1.0.0) in order to run the tests.
+This can be done by running ```pod install``` inside the CheckoutKit project (the Podfile has already been written), or installing it by any other mean.
