@@ -6,9 +6,9 @@ If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/CKOT
 
 ### How to use the library
 
-__Cocoapods__
+__CocoaPods__
 
-The framework is available on Cocoapods. The following needs to be added in the ```Podfile```:
+The framework is available on CocoaPods. The following needs to be added in the ```Podfile```:
 ```
 use_frameworks!
 pod 'CheckoutKit', '~>2.0.0'
