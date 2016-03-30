@@ -1,6 +1,6 @@
 ### Requirements
 
-Objective C, iOS 7.0 and later
+Objective-C, iOS 7.0 and later
 
 If you are using Swift, please refer to the [master branch](https://github.com/CKOTech/checkoutkit-ios).
 
@@ -52,6 +52,8 @@ Import headers
 ```
 #import "YOURPROJECTNAME-swift.h"
 #import "checkoutKit/CheckoutKitObjC.h"
+#import "checkoutKit/CardTokenResponse.h"
+#import "checkoutKit/CardProviderResponse.h"
 ```
 
 [...]
