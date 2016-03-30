@@ -10,7 +10,7 @@ import Foundation
 
 /** Class containing the card's details before sending them to createCardToken */
 
-public class Card {
+@objc public class Card: NSObject {
     var name: String?
     var number: String!
     var expYear: String!
@@ -37,29 +37,31 @@ public class Card {
     @throws CardError if an error occurs or one of the values is invalid
     
     */
-    public init(name: String?, number: String, expYear: String, expMonth: String, cvv: String, billingDetails: CustomerDetails?) throws {
         
-        self.name = name
-        if !CardValidator.validateCardNumber(number) {
-            throw CardError.InvalidNumber
-        }
-        
-        if !CardValidator.validateExpiryDate(expMonth, year: expYear) {
-           throw CardError.InvalidExpiryDate
-        }
-        
-        self.number = CardValidator.sanitizeEntry(number, isNumber: true)
-        self.expMonth = expMonth
-        self.expYear = expYear
-        
-        let c = CardValidator.getCardType(number)
-        if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) {
-            throw CardError.InvalidCVV
-        }
-        self.cvv = cvv
-        self.billingDetails = billingDetails
-
+    
+@objc public func verify() -> Bool{
+    
+    var cardValid = true
+    
+    if !CardValidator.validateCardNumber(self.number) {
+        print(CardError.InvalidNumber)
+        cardValid = false
     }
+    
+    let c = CardValidator.getCardType(self.number)
+    if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) {
+        print(CardError.InvalidCVV)
+        cardValid = false
+    }
+    
+    if !CardValidator.validateExpiryDate(self.expMonth, year: self.expYear) {
+        print(CardError.InvalidExpiryDate)
+        cardValid = false
+    }
+    
+    return cardValid
+    
+}
     
     /**
     

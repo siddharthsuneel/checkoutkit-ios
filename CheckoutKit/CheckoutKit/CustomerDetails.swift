@@ -10,7 +10,7 @@ import Foundation
 
 /** Class used to represent customer's details */
 
-public class CustomerDetails {
+@objc public class CustomerDetails:NSObject {
     var address1: String?
     var address2: String?
     var postCode: String?
@@ -108,7 +108,7 @@ public class CustomerDetails {
 
 /// Class used to represent one's phone information
 
-class Phone: Serializable {
+@objc class Phone: NSObject, Serializable {
     var countryCode: String?
     var number: String?
     
@@ -128,9 +128,9 @@ class Phone: Serializable {
     required init?(data: [String: AnyObject]) {
         self.countryCode = data["countrycode"] as? String
         self.number = data["number"] as? String
-        if self.countryCode == nil || self.number == nil {
-            return nil
-        }
+//        if self.countryCode == nil || self.number == nil {
+//            return nil
+//        }
     }
     
     /**
