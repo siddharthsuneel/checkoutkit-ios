@@ -10,7 +10,7 @@ import Foundation
 
 /** Class used to represent a card provider */
 
-public class CardProvider: Serializable, Equatable {
+@objc public class CardProvider: NSObject, Serializable {
     public var id: String!
     public var name: String!
     public var cvvRequired: Bool!
@@ -24,6 +24,7 @@ public class CardProvider: Serializable, Equatable {
     */
     
     public required init?(data: [String: AnyObject]) {
+        super.init()
         if let id = data["id"] as? String, name = data["name"] as? String, cvvReq = data["cvvRequired"] as? Bool {
             self.id = id
             self.cvvRequired = cvvReq
