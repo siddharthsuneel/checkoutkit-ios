@@ -10,10 +10,10 @@ import Foundation
 
 /** Class used to represent a card provider */
 
-public class CardProvider: Serializable, Equatable {
-    public var id: String!
-    public var name: String!
-    public var cvvRequired: Bool!
+open class CardProvider: Serializable, Equatable {
+    open var id: String!
+    open var name: String!
+    open var cvvRequired: Bool!
     
     /**
     
@@ -24,7 +24,7 @@ public class CardProvider: Serializable, Equatable {
     */
     
     public required init?(data: [String: AnyObject]) {
-        if let id = data["id"] as? String, name = data["name"] as? String, cvvReq = data["cvvRequired"] as? Bool {
+        if let id = data["id"] as? String, let name = data["name"] as? String, let cvvReq = data["cvvRequired"] as? Bool {
             self.id = id
             self.cvvRequired = cvvReq
             self.name = name

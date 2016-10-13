@@ -7,13 +7,33 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 /**  Class containing verification methods about cards numbers, CVV, expiry dates, and useful constants about card types */
 
-public class CardValidator {
+open class CardValidator {
     
     /* Regular expression used for sanitizing the card's name */
-    public static let CARD_NAME_REPLACE_PATTERN = "[^A-Z\\s]";
+    open static let CARD_NAME_REPLACE_PATTERN = "[^A-Z\\s]";
     
     /*
     
@@ -25,7 +45,7 @@ public class CardValidator {
     
     */
     
-    private class func isDigit(entry: String) -> Bool {
+    fileprivate class func isDigit(_ entry: String) -> Bool {
         return Regex(pattern: "^\\d+$").matches(entry)
     }
     
@@ -41,7 +61,7 @@ public class CardValidator {
     
     */
     
-    public class func sanitizeEntry(entry: String, isNumber: Bool) -> String {
+    open class func sanitizeEntry(_ entry: String, isNumber: Bool) -> String {
         let a: String = isNumber ? "\\D" : "\\s+|-"
         return Regex(pattern: a).replace(entry, template: "")
     }
@@ -56,8 +76,8 @@ public class CardValidator {
     
     */
     
-    private class func sanitizeName(entry: String) -> String {
-        return Regex(pattern: CARD_NAME_REPLACE_PATTERN).replace(entry.uppercaseString, template: "")
+    fileprivate class func sanitizeName(_ entry: String) -> String {
+        return Regex(pattern: CARD_NAME_REPLACE_PATTERN).replace(entry.uppercased(), template: "")
     }
     
     /**
@@ -70,7 +90,7 @@ public class CardValidator {
     
     */
     
-    public class func getCardType(number: String) -> CardInfo? {
+    open class func getCardType(_ number: String) -> CardInfo? {
         let n = sanitizeEntry(number, isNumber: true)
         if Regex(pattern: "^(54)").matches(n) && n.characters.count > 16 {
             return CardInfo.MAESTRO
@@ -93,14 +113,14 @@ public class CardValidator {
     
     */
     
-    private class func validateLuhnNumber(number: String) -> Bool {
+    fileprivate class func validateLuhnNumber(_ number: String) -> Bool {
         if number == "" { return false }
         var nCheck: Int = 0
         var nDigit: Int? = 0
         var even = false
         let n = sanitizeEntry(number, isNumber: true)
         var array = Array(n.characters)
-        for var i = (array.count - 1) ; i >= 0 ; i-- {
+        for i in (0 ..< (array.count - 1)).reversed() {
             nDigit = Int(String(array[i]))
             if nDigit == nil {
                 return false
@@ -126,7 +146,7 @@ public class CardValidator {
     
     */
     
-    public class func validateCardNumber(number: String) -> Bool {
+    open class func validateCardNumber(_ number: String) -> Bool {
         if number == "" { return false }
         let n = sanitizeEntry(number, isNumber: true)
         if Regex(pattern: "^\\d+$").matches(n) {
@@ -157,7 +177,7 @@ public class CardValidator {
     
     */
     
-    public class func validateExpiryDate(month: String, year: String) -> Bool {
+    open class func validateExpiryDate(_ month: String, year: String) -> Bool {
         if year.characters.count != 2 && year.characters.count != 4 { return false }
         let m: Int? = Int(month)
         let y: Int? = Int(year)
@@ -179,16 +199,16 @@ public class CardValidator {
     
     */
     
-    public class func validateExpiryDate(month: Int, year: Int) -> Bool {
+    open class func validateExpiryDate(_ month: Int, year: Int) -> Bool {
         if month < 1 || year < 1 { return false }
 
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Month, .Year], fromDate: date)
+        let date = Date()
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.month, .year], from: date)
         let curMonth = components.month
         var curYear = components.year
-        if year < 100 { curYear = curYear - 2000 }
-        return (curYear == year) ? curMonth <= month : curYear < year
+        if year < 100 { curYear = curYear! - 2000 }
+        return (curYear! == year) ? curMonth! <= month : curYear! < year
     }
     
     /**
@@ -203,7 +223,7 @@ public class CardValidator {
     
     */
     
-    public class func validateCVV(cvv: String, card: CardInfo) -> Bool {
+    open class func validateCVV(_ cvv: String, card: CardInfo) -> Bool {
         if cvv == "" { return false }
         let len = cvv.characters.count
         for i in card.cvvLength {
@@ -224,7 +244,7 @@ public class CardValidator {
     
     */
     
-    public class func validateCVV(cvv: Int, card: CardInfo) -> Bool {
+    open class func validateCVV(_ cvv: Int, card: CardInfo) -> Bool {
         return validateCVV(String(cvv), card: card)
     }
     

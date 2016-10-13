@@ -19,7 +19,25 @@
 		E1FDFB291B8F027B004414F8 /* CheckoutKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FDFB281B8F027B004414F8 /* CheckoutKit.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		371B6DC51DAFC8DC00D3CE3D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 371B6DC01DAFC8DB00D3CE3D /* CheckoutKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EAEAC31B8DAD0600F3003E;
+			remoteInfo = CheckoutKit;
+		};
+		371B6DC71DAFC8DC00D3CE3D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 371B6DC01DAFC8DB00D3CE3D /* CheckoutKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EAEACE1B8DAD0600F3003E;
+			remoteInfo = CheckoutKitTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		371B6DC01DAFC8DB00D3CE3D /* CheckoutKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheckoutKit.xcodeproj; path = ../CheckoutKit.xcodeproj; sourceTree = "<group>"; };
 		E16B8A9A1B9768C400AC09A9 /* Bad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bad.png; path = Images.xcassets/Bad.png; sourceTree = "<group>"; };
 		E16B8A9C1B9768FD00AC09A9 /* Good.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Good.png; path = Images.xcassets/Good.png; sourceTree = "<group>"; };
 		E16B8A9E1B976B3300AC09A9 /* ErrorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorController.swift; sourceTree = "<group>"; };
@@ -46,9 +64,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		371B6DC11DAFC8DB00D3CE3D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				371B6DC61DAFC8DC00D3CE3D /* CheckoutKit.framework */,
+				371B6DC81DAFC8DC00D3CE3D /* CheckoutKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E1EAEADF1B8DAD4300F3003E = {
 			isa = PBXGroup;
 			children = (
+				371B6DC01DAFC8DB00D3CE3D /* CheckoutKit.xcodeproj */,
 				E1FDFB281B8F027B004414F8 /* CheckoutKit.framework */,
 				E1EAEAEA1B8DAD4300F3003E /* CheckoutKitExample */,
 				E1EAEAE91B8DAD4300F3003E /* Products */,
@@ -120,6 +148,7 @@
 				TargetAttributes = {
 					E1EAEAE71B8DAD4300F3003E = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -134,12 +163,35 @@
 			mainGroup = E1EAEADF1B8DAD4300F3003E;
 			productRefGroup = E1EAEAE91B8DAD4300F3003E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 371B6DC11DAFC8DB00D3CE3D /* Products */;
+					ProjectRef = 371B6DC01DAFC8DB00D3CE3D /* CheckoutKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E1EAEAE71B8DAD4300F3003E /* CheckoutKitExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		371B6DC61DAFC8DC00D3CE3D /* CheckoutKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CheckoutKit.framework;
+			remoteRef = 371B6DC51DAFC8DC00D3CE3D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		371B6DC81DAFC8DC00D3CE3D /* CheckoutKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CheckoutKitTests.xctest;
+			remoteRef = 371B6DC71DAFC8DC00D3CE3D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E1EAEAE61B8DAD4300F3003E /* Resources */ = {
@@ -288,6 +340,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.checkout.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -305,6 +358,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.checkout.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

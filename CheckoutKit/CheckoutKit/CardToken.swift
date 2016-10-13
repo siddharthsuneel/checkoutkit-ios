@@ -10,17 +10,17 @@ import Foundation
 
 /** Class instantiated when the createCardToken method of CheckoutKit is called, it contains all the information returned by  Checkout */
 
-public class CardToken: Serializable {
+open class CardToken: Serializable {
     
-    public var expMonth: String!
-    public var expYear: String!
-    public var billDetails: CustomerDetails?
-    public var last4: String!
-    public var paymentMethod: String!
-    public var name: String!
-    public var id: String!
+    open var expMonth: String!
+    open var expYear: String!
+    open var billDetails: CustomerDetails?
+    open var last4: String!
+    open var paymentMethod: String!
+    open var name: String!
+    open var id: String!
     
-    public var logging: Bool = false
+    open var logging: Bool = false
     
     /**
     
@@ -62,10 +62,10 @@ public class CardToken: Serializable {
     
     public required init?(data: [String: AnyObject]) {
         if let year = data["expiryYear"] as? String,
-            month = data["expiryMonth"] as? String,
-            id = data["id"] as? String,
-            last4 = data["last4"] as? String,
-            paymentMethod = data["paymentMethod"] as? String {
+            let month = data["expiryMonth"] as? String,
+            let id = data["id"] as? String,
+            let last4 = data["last4"] as? String,
+            let paymentMethod = data["paymentMethod"] as? String {
                 self.expMonth = month
                 self.expYear = year
                 

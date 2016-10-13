@@ -13,7 +13,7 @@ import Foundation
 public struct CardInfo: Equatable {
     
     
-    private static let DEFAULT_CARD_FORMAT: String = "(\\d{1,4})"
+    fileprivate static let DEFAULT_CARD_FORMAT: String = "(\\d{1,4})"
     
     public static let MAESTRO = CardInfo(name: "maestro", pattern: "^(5018|5020|5038|6304|6759|6761|6763)[0-9]{8,15}$", format: DEFAULT_CARD_FORMAT, cardLength: [12, 13, 14, 15, 16, 17, 18, 19], cvvLength: [3], luhn: true, supported: true)
     public static let MASTERCARD = CardInfo(name: "mastercard", pattern: "^5[1-5][0-9]{14}$", format: DEFAULT_CARD_FORMAT, cardLength: [16,17], cvvLength: [3], luhn: true, supported: true)
@@ -53,7 +53,7 @@ public struct CardInfo: Equatable {
     @param supported is this card usable with Checkout services
     
     */
-    private init(name: String, pattern: String, format: String, cardLength: [Int], cvvLength: [Int], luhn: Bool, supported: Bool) {
+    fileprivate init(name: String, pattern: String, format: String, cardLength: [Int], cvvLength: [Int], luhn: Bool, supported: Bool) {
         self.name = name
         self.pattern = pattern
         self.format = format
