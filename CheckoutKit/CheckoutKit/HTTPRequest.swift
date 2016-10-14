@@ -11,7 +11,7 @@ import Foundation
 /** Class used to manage the http connections with Checkout's server. Serves as an abstraction for get and post requests */
 
 
-public class HTTPRequest {
+open class HTTPRequest {
     
     /**
     
@@ -29,7 +29,7 @@ public class HTTPRequest {
     
     */
     
-    public class func getRequest<T: Serializable>(url: String, pk: String, debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) {
+    open class func getRequest<T: Serializable>(_ url: String, pk: String, debug: Bool, logger: Log, completion: @escaping (_ resp: Response<T>) -> Void) {
         let httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
         httpConn.sendRequest(url, method: HTTPMethod.GET, payload: "", pk: pk)
     }
@@ -52,7 +52,7 @@ public class HTTPRequest {
     
     */
     
-    public class func postRequest<T: Serializable>(url: String, payload: String, pk: String, debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) {
+    open class func postRequest<T: Serializable>(_ url: String, payload: String, pk: String, debug: Bool, logger: Log, completion: @escaping (_ resp: Response<T>) -> Void) {
             let httpConn = getHTTPConnector(debug, logger: logger, completion: completion)
             httpConn.sendRequest(url, method: HTTPMethod.POST, payload: payload, pk: pk)
     }
@@ -60,39 +60,39 @@ public class HTTPRequest {
     /*
     Utility function used by getRequest and postRequest handling the JSON responses
     */
-    private class func getHTTPConnector<T: Serializable>(debug: Bool, logger: Log, completion: (resp: Response<T>) -> Void) -> HTTPConnector {
-        let httpConn = HTTPConnector(handler:{ (data: NSData, status: Int, error: Bool) -> Void in
+    fileprivate class func getHTTPConnector<T: Serializable>(_ debug: Bool, logger: Log, completion: @escaping (_ resp: Response<T>) -> Void) -> HTTPConnector {
+        let httpConn = HTTPConnector(handler:{ (data: Data, status: Int, error: Bool) -> Void in
             if (error) {
-                completion(resp: Response<T>(error: nil, status: -1))
+                completion(Response<T>(error: nil, status: -1))
             } else {
-            let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String: AnyObject]
+            let jsonResult = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: AnyObject]
             if jsonResult == nil {
-                logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
+                logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
             } else {
                 var resp: Response<T>
                 if status == 200 {
                     let model = T(data: jsonResult!)
                     if model == nil {
-                        logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
+                        logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
                     } else {
                         resp = Response<T>(model: model!, status: status)
                         
                         if(debug){
                             logger.info("** HttpResponse**  Status 200 OK \(jsonResult!.description)")
                         }
-                        completion(resp: resp)
+                        completion(resp)
                     }
                 } else {
                     let e = ResponseError<T>(data: jsonResult!)
                     if e == nil {
-                        logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:NSUTF8StringEncoding))")
+                        logger.error("** JSON Parsing Error CardProviders** \(NSString(data: data, encoding:String.Encoding.utf8.rawValue))")
                         return
                     }
                     resp = Response<T>(error: e!, status: status)
                     if(debug){
                         logger.info("** HttpResponse**  StatusError: \(status) \(jsonResult!.description)");
                     }
-                    completion(resp: resp)
+                    completion(resp)
                 }
             }
             }
@@ -107,7 +107,7 @@ public class HTTPRequest {
 class HTTPConnector {
     
     var httpStatus: Int = -1
-    var handler: (data: NSData, status: Int, error: Bool) -> Void
+    var handler: (_ data: Data, _ status: Int, _ error: Bool) -> Void
     var log: Log
     var debug: Bool
     
@@ -122,7 +122,7 @@ class HTTPConnector {
     @param log Log instance with the logger it should log into
     
     */
-    init(handler: (data: NSData, status: Int, error: Bool) -> Void, debug: Bool, log: Log) {
+    init(handler: @escaping (_ data: Data, _ status: Int, _ error: Bool) -> Void, debug: Bool, log: Log) {
         self.handler = handler
         self.debug = debug
         self.log = log
@@ -134,33 +134,34 @@ class HTTPConnector {
     
     */
     
-    func sendRequest(url: String, method: HTTPMethod, payload: String, pk: String) {
+    func sendRequest(_ url: String, method: HTTPMethod, payload: String, pk: String) {
         let request: NSMutableURLRequest = NSMutableURLRequest()
-        request.URL = NSURL(string: url)
-        request.HTTPMethod = "\(method.rawValue)"
+        request.url = URL(string: url)
+        request.httpMethod = "\(method.rawValue)"
         
         request.addValue(pk, forHTTPHeaderField: "AUTHORIZATION")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        request.HTTPBody = payload.dataUsingEncoding(NSUTF8StringEncoding)
+        request.httpBody = payload.data(using: String.Encoding.utf8)
         
         if(debug){
             log.info("**Request**   \(method): \(url)")
             log.info("**Payload**   \(payload)")
         }
         
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
         
-        let task = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
+        let task = session.dataTask(with: request as URLRequest) {
+            (data, response, error) in
             if error != nil {
-                self.handler(data: NSData(), status: -1, error: true)
+                self.handler(Data(), -1, true)
                 self.log.info("HEEEEEEEEEELLLO")
-                self.log.error(error!.description)
+                self.log.error(error!.localizedDescription)
             } else {
-                let httpResponse = response as? NSHTTPURLResponse
-                self.handler(data: data!, status: httpResponse!.statusCode, error: false)
+                let httpResponse = response as? HTTPURLResponse
+                self.handler(data!, httpResponse!.statusCode, false)
             }
-        })
+        }
         task.resume()
     }
 }

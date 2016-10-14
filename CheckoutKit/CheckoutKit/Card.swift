@@ -10,7 +10,7 @@ import Foundation
 
 /** Class containing the card's details before sending them to createCardToken */
 
-public class Card {
+open class Card {
     var name: String?
     var number: String!
     var expYear: String!
@@ -41,11 +41,11 @@ public class Card {
         
         self.name = name
         if !CardValidator.validateCardNumber(number) {
-            throw CardError.InvalidNumber
+            throw CardError.invalidNumber
         }
         
         if !CardValidator.validateExpiryDate(expMonth, year: expYear) {
-           throw CardError.InvalidExpiryDate
+           throw CardError.invalidExpiryDate
         }
         
         self.number = CardValidator.sanitizeEntry(number, isNumber: true)
@@ -54,7 +54,7 @@ public class Card {
         
         let c = CardValidator.getCardType(number)
         if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) {
-            throw CardError.InvalidCVV
+            throw CardError.invalidCVV
         }
         self.cvv = cvv
         self.billingDetails = billingDetails
@@ -76,10 +76,10 @@ public class Card {
                 "cvv": cvv as AnyObject
             ]
         if !(self.billingDetails == nil) {
-            dic["billingDetails"] = self.billingDetails!.getJson()
+            dic["billingDetails"] = self.billingDetails!.getJson() as AnyObject?
         }
         if !(self.name == nil) {
-            dic["name"] = self.name!
+            dic["name"] = self.name! as AnyObject?
         }
         return dic
     }

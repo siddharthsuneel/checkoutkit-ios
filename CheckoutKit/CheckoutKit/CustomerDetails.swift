@@ -10,7 +10,7 @@ import Foundation
 
 /** Class used to represent customer's details */
 
-public class CustomerDetails {
+open class CustomerDetails {
     var address1: String?
     var address2: String?
     var postCode: String?
@@ -82,25 +82,25 @@ public class CustomerDetails {
     func getJson() -> [String: AnyObject] {
         var dic: [String: AnyObject] = [:]
         if !(phone == nil) {
-            dic["phone"] = phone?.getJson()!
+            dic["phone"] = phone?.getJson()! as AnyObject?
         }
         if !(address1 == nil) {
-            dic["addressLine1"] = address1!
+            dic["addressLine1"] = address1! as AnyObject?
         }
         if !(address2 == nil) {
-            dic["addressLine2"] = address2!
+            dic["addressLine2"] = address2! as AnyObject?
         }
         if !(postCode == nil) {
-            dic["postcode"] = postCode!
+            dic["postcode"] = postCode! as AnyObject?
         }
         if !(country == nil) {
-            dic["country"] = country!
+            dic["country"] = country! as AnyObject?
         }
         if !(city == nil) {
-            dic["city"] = city!
+            dic["city"] = city! as AnyObject?
         }
         if !(state == nil) {
-            dic["state"] = state!
+            dic["state"] = state! as AnyObject?
         }
         return dic
     }
@@ -146,8 +146,8 @@ class Phone: Serializable {
             return nil
         }
         let dic: [String: AnyObject] = [
-            "number": number as! AnyObject,
-            "countrycode": countryCode as! AnyObject
+            "number": number as AnyObject,
+            "countrycode": countryCode as AnyObject
         ]
         return dic
     }

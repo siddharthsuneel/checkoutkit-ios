@@ -11,9 +11,9 @@ import CheckoutKit
 
 class SuccessController: UIViewController {
 
-    @IBAction func backButton(sender: AnyObject) {
-        let viewController = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
-        self.presentViewController(viewController, animated: true, completion: nil)
+    @IBAction func backButton(_ sender: AnyObject) {
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        self.present(viewController, animated: true, completion: nil)
     }
         override func viewDidLoad() {
         super.viewDidLoad()

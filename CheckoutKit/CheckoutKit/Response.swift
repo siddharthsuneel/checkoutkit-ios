@@ -10,11 +10,11 @@ import Foundation
 
 /** Class used to modelise a Response from the server, containing the actual data returned, in model and all the information related to the response*/
 
-public class Response<T: Serializable> {
-    public var hasError: Bool
-    public var httpStatus: Int
-    public var error: ResponseError<T>?
-    public var model: T?
+open class Response<T: Serializable> {
+    open var hasError: Bool
+    open var httpStatus: Int
+    open var error: ResponseError<T>?
+    open var model: T?
     
     /**
 

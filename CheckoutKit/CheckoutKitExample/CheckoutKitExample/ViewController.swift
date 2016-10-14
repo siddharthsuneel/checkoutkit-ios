@@ -27,85 +27,86 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
     @IBOutlet weak var datePicker: UIPickerView!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var cardTokenButton: UIButton!
-    @IBAction func dateFieldTouch(sender: AnyObject) {
-        datePicker.hidden = false
-        doneButton.hidden = false
-        cardTokenButton.hidden = true
+    @IBAction func dateFieldTouch(_ sender: AnyObject) {
+        datePicker.isHidden = false
+        doneButton.isHidden = false
+        cardTokenButton.isHidden = true
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleSingleTap(_:)))
         tapRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
         
     }
     
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         
         self.view.endEditing(true)
-        datePicker.hidden = true
-        doneButton.hidden = true
-        cardTokenButton.hidden = false
+        datePicker.isHidden = true
+        doneButton.isHidden = true
+        cardTokenButton.isHidden = false
         
     }
 
-    @IBAction func finishEdit(sender: AnyObject) {
-        datePicker.hidden = true
-        doneButton.hidden = true
-        cardTokenButton.hidden = false
+    @IBAction func finishEdit(_ sender: AnyObject) {
+        datePicker.isHidden = true
+        doneButton.isHidden = true
+        cardTokenButton.isHidden = false
     }
     
-    @IBAction func doneButton(sender: AnyObject) {
-        datePicker.hidden = true
-        doneButton.hidden = true
-        cardTokenButton.hidden = false
+    @IBAction func doneButton(_ sender: AnyObject) {
+        datePicker.isHidden = true
+        doneButton.isHidden = true
+        cardTokenButton.isHidden = false
     }
     
     // returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int{
+    func numberOfComponentsInPickerView(_ pickerView: UIPickerView!) -> Int{
         return pickerContent.count
     }
     
     // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int{
+    func pickerView(_ pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int{
         return pickerContent[component].count
     }
     
-    func pickerView(bigPicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+    func pickerView(_ bigPicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         
         return pickerContent[component][row]
         
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         if component == 0 { month = pickerContent[0][row] }
         else { year = pickerContent[1][row] }
         updateDate()
     }
     
-    private func updateDate() {
+    fileprivate func updateDate() {
         dateField.text = "\(month) / \(year)"
     }
     
-    func textFieldShouldBeginEditing( textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing( _ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        // Disable copy, select all, paste
-        if action == Selector("copy:") || action == Selector("selectAll:") || action == Selector("paste:") {
-            return false
-        }
-        // Default
-        return super.canPerformAction(action, withSender: sender)
-    }
+//    override func canPerformAction(_ action: Selector, withSender sender: AnyObject?) -> Bool {
+//        // Disable copy, select all, paste
+//        if action == #selector(copy(_:)) || action == #selector(selectAll(_:)) || action == #selector(paste(_:)) {
+//            return false
+//        }
+//        // Default
+//        return super.canPerformAction(action, withSender: sender)
+//    }
     
     
-    private func validateCardInfo(number: String, expYear: String, expMonth: String, cvv: String) -> Bool {
+    fileprivate func validateCardInfo(_ number: String, expYear: String, expMonth: String, cvv: String) -> Bool {
         var err: Bool = false
         resetFieldsColor()
         if (!CardValidator.validateCardNumber(number)) {
@@ -123,20 +124,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
         return !err
     }
     
-    private func resetFieldsColor() {
-            numberField.backgroundColor = UIColor.whiteColor()
-            dateField.backgroundColor = UIColor.whiteColor()
-            cvvField.backgroundColor = UIColor.whiteColor()
+    fileprivate func resetFieldsColor() {
+            numberField.backgroundColor = UIColor.white
+            dateField.backgroundColor = UIColor.white
+            cvvField.backgroundColor = UIColor.white
     }
     
-    @IBAction func getCardToken(sender: AnyObject) {
+    @IBAction func getCardToken(_ sender: AnyObject) {
         
         var ck: CheckoutKit? = nil
         do {
         try ck = CheckoutKit.getInstance("pk_test_6ff46046-30af-41d9-bf58-929022d2cd14")
         } catch _ as NSError {
-            let errorController = self.storyboard?.instantiateViewControllerWithIdentifier("ErrorController") as! ErrorController
-            self.presentViewController(errorController, animated: true, completion: nil)
+            let errorController = self.storyboard?.instantiateViewController(withIdentifier: "ErrorController") as! ErrorController
+            self.present(errorController, animated: true, completion: nil)
         }
         if ck != nil {
             if (validateCardInfo(numberField.text!, expYear: year, expMonth: month, cvv: cvvField.text!)) {
@@ -146,9 +147,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
             try card = Card(name: nameField.text!, number: numberField.text!, expYear: year, expMonth: month, cvv: cvvField.text!, billingDetails: nil)
                 } catch let err as CardError {
                     switch(err) {
-                    case CardError.InvalidCVV: cvvField.backgroundColor = errorColor
-                    case CardError.InvalidExpiryDate: dateField.backgroundColor = errorColor
-                    case CardError.InvalidNumber: numberField.backgroundColor = errorColor
+                    case CardError.invalidCVV: cvvField.backgroundColor = errorColor
+                    case CardError.invalidExpiryDate: dateField.backgroundColor = errorColor
+                    case CardError.invalidNumber: numberField.backgroundColor = errorColor
                     }
                 } catch _ as NSError {
                     
@@ -156,14 +157,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
             if card != nil {
             ck!.createCardToken(card!, completion:{ (resp: Response<CardTokenResponse>) -> Void in
             if (resp.hasError) {
-                let errorController = self.storyboard?.instantiateViewControllerWithIdentifier("ErrorController") as! ErrorController
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(errorController, animated: true, completion: nil)
+                let errorController = self.storyboard?.instantiateViewController(withIdentifier: "ErrorController") as! ErrorController
+                DispatchQueue.main.async(execute: {
+                    self.present(errorController, animated: true, completion: nil)
                 });
             } else {
-                let successController = self.storyboard?.instantiateViewControllerWithIdentifier("SuccessController") as! SuccessController
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(successController, animated: true, completion: nil)
+                let successController = self.storyboard?.instantiateViewController(withIdentifier: "SuccessController") as! SuccessController
+                DispatchQueue.main.async(execute: {
+                    self.present(successController, animated: true, completion: nil)
                     });
             }
         })
@@ -177,17 +178,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
         
         dateField.delegate = self
         pickerContent.append([])
-        for (var m = 0 ; m < months.count ; m++) {
+        for m in 0  ..< months.count  {
             pickerContent[0].append(months[m].description)
         }
         pickerContent.append([])
-        for (var y = 0 ; y < years.count ; y++) {
+        for y in 0 ..< years.count {
             pickerContent[1].append(years[y].description)
         }
         datePicker.delegate = self
-        datePicker.hidden = true
-        doneButton.hidden = true
-        cardTokenButton.hidden = false
+        datePicker.isHidden = true
+        doneButton.isHidden = true
+        cardTokenButton.isHidden = false
         
     
     }

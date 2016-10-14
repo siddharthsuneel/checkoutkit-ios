@@ -1,31 +1,32 @@
 ### Requirements
 
-Swift 2, iOS 9.0 and later
+Swift 3, iOS 8.0 and later
 
-If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/CKOTech/checkoutkit-ios/tree/1.0.0).
+If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/checkout/checkoutkit-ios/tree/1.0.0).
+
+If you are using Swift 2.0, refer to [CheckoutKit 2.0.0](https://github.com/checkout/checkoutkit-ios/tree/2.0.0).
+
+If you are using Objective-C, refer to [CheckoutKit objective-c](https://github.com/checkout/checkoutkit-ios/tree/objective-c).
 
 ### How to use the library
+
+There are 2 ways you can add CheckoutKit to your project:
 
 __CocoaPods__
 
 The framework is available on CocoaPods. The following needs to be added in the ```Podfile```:
 ```
 use_frameworks!
-pod 'CheckoutKit', '~>2.0.0'
+pod 'CheckoutKit', '~>3.0.0'
 xcodeproj 'path/to/proj.xcodeproj'
 ```
 
 Then run ```pod install``` and the framework is ready to be used.
 
-__Carthage__
-
-Add the following line to your ```cartfile```: ```github "CKOTech/checkoutkit-ios" >= 2.0.0```.
-Then run ```carthage update```. It will download the latest version of the CheckoutKit framework. More information about Cartage is available [here](https://github.com/Carthage/Carthage).
-
 __Manually__
 
 Otherwise, the framework source code can be downloaded and manually added in your Xcode workspace.
-Download or clone the [github repository](https://github.com/CKOTech/checkoutkit-ios). In your workspace, choose File > "Add files to ... " and select ```CheckoutKit/CheckoutKit.xcodeproj```.
+Download or clone the [github repository](https://github.com/checkout/checkoutkit-ios). In your workspace, choose File > "Add files to ... " and select ```CheckoutKit/CheckoutKit.xcodeproj```.
 Go to your project > General > Linked Frameworks and Libraries and add ```CheckoutKit.framework```.
 
 ### Example
@@ -114,5 +115,5 @@ Most of the activity of the **CheckoutKit** is logged either as information, war
 ### Unit Tests
 
 All the unit tests are written using XCTest and Nimble and reside in CheckoutKit/CheckoutKitTests. 
-You need to install [Nimble v3.0](https://github.com/Quick/Nimble/tree/v3.0.0) in order to run the tests.
+You need to install [Nimble v5.0](https://github.com/Quick/Nimble/tree/v5.0.0) in order to run the tests.
 This can be done by running ```pod install``` inside the CheckoutKit project (the Podfile has already been written), or installing it by any other mean.

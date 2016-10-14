@@ -10,32 +10,32 @@ import Foundation
 
 /** Custom errors used for validation errors */
 
-public enum CardError: ErrorType {
-    case InvalidNumber
-    case InvalidCVV
-    case InvalidExpiryDate
+public enum CardError: Error {
+    case invalidNumber
+    case invalidCVV
+    case invalidExpiryDate
 
     var desc: String
         {
             switch self
             {
-            case .InvalidNumber: return "Invalid card number"
-            case .InvalidCVV: return "Invalid CVV"
-            case .InvalidExpiryDate: return "Invalid expiry date"
+            case .invalidNumber: return "Invalid card number"
+            case .invalidCVV: return "Invalid CVV"
+            case .invalidExpiryDate: return "Invalid expiry date"
             }
     }
 }
 
-public enum CheckoutError: ErrorType {
-    case InvalidPK
-    case NoPK
+public enum CheckoutError: Error {
+    case invalidPK
+    case noPK
     
     var desc: String
         {
             switch self
             {
-            case .InvalidPK: return "Invalid public key"
-            case .NoPK: return "No public key has been set"
+            case .invalidPK: return "Invalid public key"
+            case .noPK: return "No public key has been set"
             }
     }
 }

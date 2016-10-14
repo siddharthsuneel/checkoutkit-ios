@@ -10,10 +10,10 @@ import Foundation
 
 /** Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this. */
 
-public class CardProviderResponse: Serializable {
-    public var object: String!
-    public var count: Int!
-    public var data: [CardProvider]!
+open class CardProviderResponse: Serializable {
+    open var object: String!
+    open var count: Int!
+    open var data: [CardProvider]!
     
     /**
     
@@ -24,7 +24,7 @@ public class CardProviderResponse: Serializable {
     */
     
     public required init?(data: [String: AnyObject]) {
-        if let i = data["data"] as? [[String: AnyObject]], count = data["count"] as? Int, obj = data["object"] as? String {
+        if let i = data["data"] as? [[String: AnyObject]], let count = data["count"] as? Int, let obj = data["object"] as? String {
             var cps: [CardProvider] = []
             for cp in i {
                 let c = CardProvider(data: cp)
