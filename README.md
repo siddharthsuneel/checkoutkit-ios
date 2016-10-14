@@ -3,27 +3,12 @@
 Swift 3, iOS 10.0 and later
 
 If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/checkout/checkoutkit-ios/tree/1.0.0).
+
 If you are using Swift 2.0, refer to [CheckoutKit 2.0.0](https://github.com/checkout/checkoutkit-ios/tree/2.0.0).
 
 ### How to use the library
 
-There are 3 ways you can add CheckoutKit to your project:
-
-__Swift Package Manager__
-
-Add the following text to your Package.swift file and run ```swift build```.
-```
-import PackageDescription
-
-let package = Package(
-    name: "YourPackageName",
-    targets: [],
-    dependencies: [
-        .Package(url: "https://github.com/checkout/checkoutkit-ios",
-                 versions: Version(3,0,0)..<Version(4,0,0))
-    ]
-)
-```
+There are 2 ways you can add CheckoutKit to your project:
 
 __CocoaPods__
 
