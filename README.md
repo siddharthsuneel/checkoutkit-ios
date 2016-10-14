@@ -1,6 +1,6 @@
 ### Requirements
 
-Swift 3, iOS 10.0 and later
+Swift 3, iOS 8.0 and later
 
 If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/checkout/checkoutkit-ios/tree/1.0.0).
 
