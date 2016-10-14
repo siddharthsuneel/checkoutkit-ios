@@ -104,7 +104,7 @@ class CheckoutKitTests: XCTestCase {
             expect(resp.httpStatus).to(equal(200))
             expect(resp.model).toNot(beNil())
             expect(resp.model!.count).to(equal(self.cps.count))
-            for var i = 0 ; i < self.cps.count ; i++ {
+            for i in 0  ..< self.cps.count {
                 expect(resp.model!.data[i]).to(equal(self.cps[i]))
             }
         })
