@@ -6,6 +6,8 @@ If you are using Swift 1.2, refer to [CheckoutKit 1.0.0](https://github.com/chec
 
 If you are using Swift 2.0, refer to [CheckoutKit 2.0.0](https://github.com/checkout/checkoutkit-ios/tree/2.0.0).
 
+If you are using Objective-C, refer to [CheckoutKit objective-c](https://github.com/checkout/checkoutkit-ios/tree/objective-c).
+
 ### How to use the library
 
 There are 2 ways you can add CheckoutKit to your project:
