@@ -2,5 +2,5 @@ import PackageDescription
 
 let package = Package(
     name: "CheckoutKit",
-    exclude: []
+    exclude: ["Workspace.xcworkspace"]
 )
