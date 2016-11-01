@@ -10,21 +10,21 @@ import Foundation
 
 /** Class used to log activity in the console */
 
-public class Log {
-    private static let PATTERN_COMPACT_PRINT: String = "[\\n\\s]+"
-    private static var log: Log? = nil
+open class Log {
+    fileprivate static let PATTERN_COMPACT_PRINT: String = "[\\n\\s]+"
+    fileprivate static var log: Log? = nil
     
     /**
     Default constructor
     */
-    private init() {}
+    fileprivate init() {}
     
     /**
     
     Function used for the Singleton Pattern, returns a unique Log instance
 
     */
-    public class func getLog() -> Log {
+    open class func getLog() -> Log {
         if (log == nil) {
             log = Log()
         }
@@ -39,7 +39,7 @@ public class Log {
     
     */
     
-    public func info(message: String) -> Void {
+    open func info(_ message: String) -> Void {
         printDate()
         let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
         print("INFO: \(msg)")
@@ -53,7 +53,7 @@ public class Log {
     
     */
     
-    public func warn(message: String) -> Void {
+    open func warn(_ message: String) -> Void {
         printDate()
         let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
         print("WARNING: \(msg)")
@@ -67,7 +67,7 @@ public class Log {
     
     */
     
-    public func error(message: String) -> Void {
+    open func error(_ message: String) -> Void {
         printDate()
         let msg = Regex(pattern: Log.PATTERN_COMPACT_PRINT).replace(message, template: " ")
         print("ERROR: \(msg)")
@@ -79,10 +79,10 @@ public class Log {
     
     */
     
-    private func printDate() -> Void {
-        let date = NSDate()
-        let formatter = NSDateFormatter()
+    fileprivate func printDate() -> Void {
+        let date = Date()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        print(formatter.stringFromDate(date))
+        print(formatter.string(from: date))
     }
 }

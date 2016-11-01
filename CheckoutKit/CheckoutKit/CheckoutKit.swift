@@ -10,11 +10,11 @@ import Foundation
 
 /** Main class allowing to create one CheckoutKit instance, provide the merchant's public key and create card tokens */
 
-public class CheckoutKit {
+open class CheckoutKit {
     
-    public let PUBLIC_KEY_REGEX_VALIDATION: String = "^pk_(?:test_)?(?:\\w{8})-(?:\\w{4})-(?:\\w{4})-(?:\\w{4})-(?:\\w{12})$"
+    open let PUBLIC_KEY_REGEX_VALIDATION: String = "^pk_(?:test_)?(?:\\w{8})-(?:\\w{4})-(?:\\w{4})-(?:\\w{4})-(?:\\w{12})$"
     
-    private static var ck: CheckoutKit? = nil
+    fileprivate static var ck: CheckoutKit? = nil
     
     var pk: String!
     var env: Environment
@@ -48,14 +48,14 @@ public class CheckoutKit {
     
     */
     
-    private init(pk: String, env: Environment, debug: Bool, logger: Log) throws {
+    fileprivate init(pk: String, env: Environment, debug: Bool, logger: Log) throws {
         self.env = env
         self.logging = debug
         self.logger = logger
         
         if !Regex(pattern: PUBLIC_KEY_REGEX_VALIDATION).matches(pk) {
             logger.info("**Wrong public key**   \(pk)")
-            throw CheckoutError.InvalidPK
+            throw CheckoutError.invalidPK
         }
         self.pk = pk
         if(self.logging){
@@ -79,7 +79,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, env: Environment, debug: Bool, logger: Log) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, env: Environment, debug: Bool, logger: Log) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: env, debug: debug, logger: logger)
         }
@@ -96,7 +96,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: Log.getLog())
         }
@@ -112,9 +112,9 @@ public class CheckoutKit {
      @returns null if getInstance has not been called before specifying all the parameters or the CheckoutKit object
      */
     
-    public class func getInstance() throws -> CheckoutKit? {
+    open class func getInstance() throws -> CheckoutKit? {
         if (ck == nil) {
-            throw CheckoutError.NoPK
+            throw CheckoutError.noPK
         }
         return ck
     }
@@ -133,7 +133,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, debug: Bool, logger: Log) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, debug: Bool, logger: Log) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: logger)
         }
@@ -154,7 +154,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, env: Environment, logger: Log) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, env: Environment, logger: Log) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: env, debug: true, logger: logger)
         }
@@ -175,7 +175,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, env: Environment, debug: Bool) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, env: Environment, debug: Bool) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: env, debug: debug, logger: Log.getLog())
         }
@@ -194,7 +194,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, env: Environment) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, env: Environment) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: env, debug: true, logger: Log.getLog())
         }
@@ -213,7 +213,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, logger: Log) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, logger: Log) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: true, logger: logger)
         }
@@ -232,7 +232,7 @@ public class CheckoutKit {
      
      */
     
-    public class func getInstance(pk: String, debug: Bool) throws -> CheckoutKit? {
+    open class func getInstance(_ pk: String, debug: Bool) throws -> CheckoutKit? {
         if (ck == nil) {
             ck = try CheckoutKit(pk: pk, env: Environment.SANDBOX, debug: debug, logger: Log.getLog())
         }
@@ -247,7 +247,7 @@ public class CheckoutKit {
     
     */
     
-    private func getUrl(function: RESTFunction) -> String {
+    fileprivate func getUrl(_ function: RESTFunction) -> String {
         return "\(self.env.rawValue)\(function.rawValue)"
     }
     
@@ -261,7 +261,7 @@ public class CheckoutKit {
      
      */
     
-    public func getCardProviders(completion: Response<CardProviderResponse> -> Void) {
+    open func getCardProviders(_ completion: @escaping (Response<CardProviderResponse>) -> Void) {
         if(logging){
             logger.info("**GetCardProviders called**   \(pk)")
         }
@@ -281,14 +281,14 @@ public class CheckoutKit {
      @return CardToken object containing all the information received by the server
      */
     
-    public func createCardToken(card: Card, completion: Response<CardTokenResponse> -> Void) {
+    open func createCardToken(_ card: Card, completion: @escaping (Response<CardTokenResponse>) -> Void) {
         if(logging){
             logger.info("**CreateCardToken called**   \(pk)")
         }
         var data: String = ""
-        if NSJSONSerialization.isValidJSONObject(card.getJson()) {
-            let c = try? NSJSONSerialization.dataWithJSONObject(card.getJson(), options: [])
-            data = NSString(data: c!, encoding:NSUTF8StringEncoding)! as String
+        if JSONSerialization.isValidJSONObject(card.getJson()) {
+            let c = try? JSONSerialization.data(withJSONObject: card.getJson(), options: [])
+            data = NSString(data: c!, encoding:String.Encoding.utf8.rawValue)! as String
         }
         HTTPRequest.postRequest(getUrl(RESTFunction.CREATECARDTOKEN), payload: data, pk: self.pk, debug: self.logging, logger: self.logger, completion:{ (resp: Response<CardTokenResponse>) -> Void in
             completion(resp)
@@ -296,7 +296,7 @@ public class CheckoutKit {
         
     }
     
-    public class func destroy() {
+    open class func destroy() {
         ck = nil
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 /** Utility class used to abstract the use of regular expressions */
 
-public class Regex {
+open class Regex {
     var internalExpression: NSRegularExpression?
     
     /**
@@ -31,8 +31,8 @@ public class Regex {
     @param input String to be tested with the regular expression
     
     */
-    public func matches(input: String) -> Bool {
-        let matches = self.internalExpression!.matchesInString(input, options: [], range:NSMakeRange(0, input.characters.count))
+    open func matches(_ input: String) -> Bool {
+        let matches = self.internalExpression!.matches(in: input, options: [], range:NSMakeRange(0, input.characters.count))
         return matches.count > 0
     }
     
@@ -45,7 +45,7 @@ public class Regex {
     @param template String to replace the matching parts of the input with
     
     */
-    public func replace(input: String, template: String) -> String {
-        return self.internalExpression!.stringByReplacingMatchesInString(input, options: [], range: NSMakeRange(0, input.characters.count), withTemplate: template)
+    open func replace(_ input: String, template: String) -> String {
+        return self.internalExpression!.stringByReplacingMatches(in: input, options: [], range: NSMakeRange(0, input.characters.count), withTemplate: template)
     }
 }

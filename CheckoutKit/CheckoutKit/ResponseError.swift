@@ -10,10 +10,10 @@ import Foundation
 
 /** Class used to represent a error returned by the server after a request has failed. It contains all the information relative to this error/failure. */
 
-public class ResponseError<T: Serializable> {
-    public var errorCode: String
-    public var message: String
-    public var errors: [String]
+open class ResponseError<T: Serializable> {
+    open var errorCode: String
+    open var message: String
+    open var errors: [String]
     
     
     /**
@@ -44,7 +44,7 @@ public class ResponseError<T: Serializable> {
     
     public required init?(data: [String: AnyObject]) {
         
-        if let code = data["errorCode"] as? String, msg = data["message"] as? String {
+        if let code = data["errorCode"] as? String, let msg = data["message"] as? String {
             self.errorCode = code
             self.message = msg
             if let errorsData = data["errors"] as? [String] {
