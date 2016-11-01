@@ -2,6 +2,8 @@
 
 Objective-C, iOS 7.0 and later
 
+Relies on Swift 3, requires Xcode 8. If using Xcode 7, please refer to the [objective-c-swift2 branch] (https://github.com/checkout/checkoutkit-ios/tree/objective-c-swift2).
+
 If you are using Swift, please refer to the [master branch](https://github.com/CKOTech/checkoutkit-ios).
 
 ### How to use the library
@@ -33,7 +35,10 @@ Follow the below instructions to make your Objective-C project ready to use the 
 
 ![alt tag](Screenshots/screenshot2.png)
 
-5. Go to CheckoutKitObjcC.h and replace ```#import "checkoutObjC-swift.h"``` with ```#import "YOURPROJECTNAME-swift.h"```
+5. Replace header imports in the below files:
+* Go to CheckoutKitObjcC.h and replace ```#import "checkoutObjC-swift.h"``` with ```#import "YOURPROJECTNAME-swift.h"```
+* Go to CardProviderResponse.h and replace ```#import "checkoutObjC-swift.h"``` with ```#import "YOURPROJECTNAME-swift.h"```
+* Go to CardTokenResponse.h and replace ```#import "checkoutObjC-swift.h"``` with ```#import "YOURPROJECTNAME-swift.h"```
 
 6. Your project structure should now be similar to the below:
 

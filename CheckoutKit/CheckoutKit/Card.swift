@@ -10,7 +10,7 @@ import Foundation
 
 /** Class containing the card's details before sending them to createCardToken */
 
-@objc public class Card: NSObject {
+@objc open class Card: NSObject {
     var name: String?
     var number: String!
     var expYear: String!
@@ -39,23 +39,23 @@ import Foundation
     */
         
     
-@objc public func verify() -> Bool{
+@objc open func verify() -> Bool{
     
     var cardValid = true
     
     if !CardValidator.validateCardNumber(self.number) {
-        print(CardError.InvalidNumber)
+        print(CardError.invalidNumber)
         cardValid = false
     }
     
     let c = CardValidator.getCardType(self.number)
     if (c == nil || !CardValidator.validateCVV(cvv, card: c!)) {
-        print(CardError.InvalidCVV)
+        print(CardError.invalidCVV)
         cardValid = false
     }
     
     if !CardValidator.validateExpiryDate(self.expMonth, year: self.expYear) {
-        print(CardError.InvalidExpiryDate)
+        print(CardError.invalidExpiryDate)
         cardValid = false
     }
     
@@ -78,10 +78,10 @@ import Foundation
                 "cvv": cvv as AnyObject
             ]
         if !(self.billingDetails == nil) {
-            dic["billingDetails"] = self.billingDetails!.getJson()
+            dic["billingDetails"] = self.billingDetails!.getJson() as AnyObject?
         }
         if !(self.name == nil) {
-            dic["name"] = self.name!
+            dic["name"] = self.name! as AnyObject?
         }
         return dic
     }

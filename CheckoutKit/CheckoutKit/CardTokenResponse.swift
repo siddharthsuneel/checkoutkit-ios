@@ -11,13 +11,13 @@ import Foundation
 /** Class used for receiving REST messages, it has the same format as the expected response. We extract the useful information based on this. */
 
 
-public class CardTokenResponse: Serializable {
+open class CardTokenResponse: Serializable {
     
-    public var cardToken: String!
-    public var liveMode: Bool!
-    public var created: String!
-    public var used: Bool!
-    public var card: CardToken!
+    open var cardToken: String!
+    open var liveMode: Bool!
+    open var created: String!
+    open var used: Bool!
+    open var card: CardToken!
     
     /**
     Default constructor
@@ -52,10 +52,10 @@ public class CardTokenResponse: Serializable {
     
     public required init?(data: [String: AnyObject]) {
         if let ct = data["id"] as? String,
-            created = data["created"] as? String,
-            lm = data["liveMode"] as? Bool,
-            used = data["used"] as? Bool,
-            card = data["card"] as? [String: AnyObject] {
+            let created = data["created"] as? String,
+            let lm = data["liveMode"] as? Bool,
+            let used = data["used"] as? Bool,
+            let card = data["card"] as? [String: AnyObject] {
                 
                 self.cardToken = ct
                 self.created = created
