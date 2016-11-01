@@ -2,6 +2,8 @@
 
 Objective-C, iOS 7.0 and later
 
+Relies on Swift 2. If using Xcode 8, please refer to the [objective-c main branch](https://github.com/checkout/checkoutkit-ios/tree/objective-c)
+
 If you are using Swift, please refer to the [master branch](https://github.com/CKOTech/checkoutkit-ios).
 
 ### How to use the library
