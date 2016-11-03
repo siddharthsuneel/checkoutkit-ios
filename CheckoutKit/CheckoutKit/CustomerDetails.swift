@@ -146,8 +146,8 @@ class Phone: Serializable {
             return nil
         }
         let dic: [String: AnyObject] = [
-            "number": number as AnyObject,
-            "countrycode": countryCode as AnyObject
+            "number": number! as AnyObject,
+            "countrycode": countryCode! as AnyObject
         ]
         return dic
     }
