@@ -1,3 +1,10 @@
+3.0.1 / 2016-11-03
+==================
+
+* Added support for Mastercard 2 BIN range
+* Fixed cardValidation bug
+* Fixed JSON formatting
+
 3.0.0 / 2016-10-14
 ==================
 
