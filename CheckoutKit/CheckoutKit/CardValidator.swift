@@ -120,7 +120,7 @@ open class CardValidator {
         var even = false
         let n = sanitizeEntry(number, isNumber: true)
         var array = Array(n.characters)
-        for i in (0 ..< (array.count - 1)).reversed() {
+        for i in (0 ..< (array.count)).reversed() {
             nDigit = Int(String(array[i]))
             if nDigit == nil {
                 return false
