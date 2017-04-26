@@ -108,6 +108,59 @@ ck!.createCardToken(card!, completion:{ (resp: Response<CardTokenResponse>) -> V
 }
 ```
 
+**Swift 3 - Create card token sample function**
+
+```swift
+func getCardToken() {
+        
+        var ck: CheckoutKit? = nil
+        let customerDetails = CustomerDetails(address1: "test address 1",
+                                              address2: "test address2",
+                                              postCode: "B16123",
+                                              country: "GB",
+                                              city: "London",
+                                              state: "xyz",
+                                              phoneNumber: "7777777777",
+                                              phoneCountryCode: "44")
+        
+        do {
+            try ck = CheckoutKit.getInstance("pk_test_XXXXXXXXX",
+                                             env: Environment.SANDBOX)
+        } catch _ as NSError {
+        
+        }
+        
+        if ck != nil {
+            if (CardValidator.validateCardNumber("4242424242424242")) {
+                
+                var card: Card? = nil
+                do {
+                    try card = Card(name: "test name",
+                                    number: "4242424242424242",
+                                    expYear: "2018",
+                                    expMonth: "06",
+                                    cvv: "100",
+                                    billingDetails: customerDetails)
+                    
+                } catch _ as CardError {
+                    
+                } catch _ as NSError {
+                    
+                }
+                if card != nil {
+                    ck!.createCardToken(card!, completion:{ (resp: Response<CardTokenResponse>) -> Void in
+                        if (resp.hasError) {
+                           
+                        } else {
+                            print (resp.model?.cardToken)
+                        }
+                    })
+                }
+            }
+        }
+    }
+```
+
 ### Logging
 
 Most of the activity of the **CheckoutKit** is logged either as information, warning or error. All the logs are made to the console for now. Logging occurs only if the debug mode is activated (true as default, but can be explicitely set to false). The printing format is ```date (yyyy/MM/dd HH:mm:ss)  **Subject/Class name**  logged message```. The logger can be modified via the functions setLogger or getInstance. The log entries are then added to the logger specified.
