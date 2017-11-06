@@ -15,8 +15,9 @@ public struct CardInfo: Equatable {
     
     private static let DEFAULT_CARD_FORMAT: String = "(\\d{1,4})"
     
-    public static let MAESTRO = CardInfo(name: "maestro", pattern: "^(5018|5020|5038|6304|6759|6761|6763)[0-9]{8,15}$", format: DEFAULT_CARD_FORMAT, cardLength: [12, 13, 14, 15, 16, 17, 18, 19], cvvLength: [3], luhn: true, supported: true)
+    public static let MAESTRO = CardInfo(name: "maestro", pattern: "^(5[06-9]|6[37])[0-9]{10,17}$", format: DEFAULT_CARD_FORMAT, cardLength: [12, 13, 14, 15, 16, 17, 18, 19], cvvLength: [3], luhn: true, supported: true)
     public static let MASTERCARD = CardInfo(name: "mastercard", pattern: "^5[1-5][0-9]{14}$", format: DEFAULT_CARD_FORMAT, cardLength: [16,17], cvvLength: [3], luhn: true, supported: true)
+    public static let MASTERCARD2 = CardInfo(name: "mastercard2", pattern: "^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720|5[1-5])", format: DEFAULT_CARD_FORMAT, cardLength: [16,17], cvvLength: [3], luhn: true, supported: true)
     public static let DINERSCLUB = CardInfo(name: "dinersclub", pattern: "^3(?:0[0-5]|[68][0-9])?[0-9]{11}$", format: "(\\d{1,4})(\\d{1,6})?(\\d{1,4})?", cardLength: [14], cvvLength: [3], luhn: true, supported: true)
     public static let LASER = CardInfo(name: "laser", pattern: "^(6304|6706|6709|6771)[0-9]{12,15}$", format: DEFAULT_CARD_FORMAT, cardLength: [16,17, 18, 19], cvvLength: [3], luhn: true, supported: false)
     public static let JCB = CardInfo(name: "jcb", pattern: "^(?:2131|1800|35[0-9]{3})[0-9]{11}$", format: DEFAULT_CARD_FORMAT, cardLength: [16], cvvLength: [3], luhn: true, supported: true)
@@ -25,7 +26,7 @@ public struct CardInfo: Equatable {
     public static let AMEX = CardInfo(name: "amex", pattern: "^3[47][0-9]{13}$", format: "^(\\d{1,4})(\\d{1,6})?(\\d{1,5})?$", cardLength: [15], cvvLength: [4], luhn: true, supported: true)
     public static let VISA = CardInfo(name: "visa", pattern: "^4[0-9]{12}(?:[0-9]{3})?$", format: DEFAULT_CARD_FORMAT, cardLength: [13, 16], cvvLength: [3], luhn: true, supported: true)
     
-    public static let cards: [CardInfo] = [.MAESTRO, .MASTERCARD, .DINERSCLUB, .LASER, .JCB, .UNIONPAY, .DISCOVER, .AMEX, .VISA]
+    public static let cards: [CardInfo] = [.MAESTRO, .MASTERCARD, .MASTERCARD2, .DINERSCLUB, .LASER, .JCB, .UNIONPAY, .DISCOVER, .AMEX, .VISA]
     
     public let name: String
     public let pattern: String
