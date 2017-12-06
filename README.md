@@ -3,7 +3,9 @@
 Objective-C, iOS 7.0 and later
 
 Relies on Swift 3, requires Xcode 8.
+
 If using Xcode 9, please set "Swift Language Version" to `Swift 3.2` inside the target's Build Settings.
+
 If using Xcode 7, please refer to the [objective-c-swift2 branch] (https://github.com/checkout/checkoutkit-ios/tree/objective-c-swift2).
 
 If you are using Swift, please refer to the [master branch](https://github.com/CKOTech/checkoutkit-ios).
