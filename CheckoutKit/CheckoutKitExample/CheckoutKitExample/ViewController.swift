@@ -43,7 +43,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UITextFieldDelegat
         
     }
     
-    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         
         self.view.endEditing(true)
         datePicker.isHidden = true
