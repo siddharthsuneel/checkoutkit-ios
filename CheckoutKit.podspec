@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary = 'iOS version of Checkout Kit that implements Card Tokenisation'
   s.homepage = 'https://checkout.com'
   s.authors = { 'Checkout.com Integration': 'integration@checkout.com' }
-  s.source = { :git => 'https://github.com/elvi117/checkoutkit-ios', :branch => 'master' }
+  s.source = { :git => 'https://github.com/checkout/checkoutkit-ios', :branch => 'master' }
 
   s.ios.deployment_target = '8.0'
   
