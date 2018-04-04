@@ -336,7 +336,7 @@
 					"/Users/manonh/IOS/DerivedData/Workspace/Build/Products/Debug-iphonesimulator",
 				);
 				INFOPLIST_FILE = CheckoutKitExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.checkout.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,7 +354,7 @@
 					"/Users/manonh/IOS/DerivedData/Workspace/Build/Products/Debug-iphonesimulator",
 				);
 				INFOPLIST_FILE = CheckoutKitExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.checkout.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
