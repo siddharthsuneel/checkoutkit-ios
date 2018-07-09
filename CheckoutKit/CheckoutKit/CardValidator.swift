@@ -96,7 +96,10 @@ open class CardValidator {
             return CardInfo.MAESTRO
         }
         for c in CardInfo.cards {
-            if Regex(pattern: c.pattern).matches(n) {
+            let regex = c.pattern
+            let regextTest = NSPredicate(format:"SELF MATCHES %@", regex)
+            let result = regextTest.evaluate(with: n)
+            if result {
                 return c
             }
         }
